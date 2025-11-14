@@ -15,6 +15,8 @@ public class ObstacleSpawner : MonoBehaviour
 
         foreach (Transform point in tile.obstaclePoints)
         {
+            if (point == null) continue;
+
             float rand = Random.value;
 
             // spawn obstacle

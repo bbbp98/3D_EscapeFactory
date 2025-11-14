@@ -11,7 +11,21 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
+        os = FindFirstObjectByType<ObstacleSpawner>();
         os.SpawnObstaclesInTile(this);
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        if (obstaclePoints == null)
+            return;
+
+        foreach (Transform t in obstaclePoints)
+        {
+            if (t == null) continue;
+
+            Gizmos.DrawSphere(t.position, 0.3f);
+        }
+    }
 }

@@ -10,11 +10,24 @@ public enum ObstacleType
 public class ObstacleBase : MonoBehaviour
 {
     [SerializeField] protected ObstacleType type;
+    private bool isConflict = false;
+
+    private void Reset()
+    {
+        type = ObstacleType.None;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // 충돌 체크
+        if (isConflict)
+            return;
 
+        // 충돌 체크
+        if (other.CompareTag("Player"))
+        {
+            //isConflict = true;
+            Debug.Log("coll");
+        }
     }
 
     protected virtual void OnHitEffect() { }    // 충돌했을 때 이펙트
