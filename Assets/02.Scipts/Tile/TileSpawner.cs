@@ -28,9 +28,8 @@ public class TileSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (playerTr.position.z - 30f > spawnZ - (tilesOnSceen * tileLength))
+        if (playerTr.position.z - (tileLength * 2) > spawnZ - (tilesOnSceen * tileLength))
         {
-            Debug.Log(playerTr.position.z);
             SpawnTile();
             DisableTile();
         }

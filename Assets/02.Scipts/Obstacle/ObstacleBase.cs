@@ -22,7 +22,7 @@ public class ObstacleBase : MonoBehaviour
         if (isConflict)
             return;
 
-        // 충돌 체크
+        // 충돌 체크 (component 검사로 변경 예정)
         if (other.CompareTag("Player"))
         {
             //isConflict = true;

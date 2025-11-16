@@ -9,11 +9,6 @@ public class Tile : MonoBehaviour
     #region test code
     public ObstacleSpawner os;
 
-    private void Start()
-    {
-        os = FindFirstObjectByType<ObstacleSpawner>();
-        os.SpawnObstaclesInTile(this);
-    }
     #endregion
 
     private void OnDrawGizmos()
