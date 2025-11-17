@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class PlayerCondition : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int health;
+    public PlayerController playerController;
+    public AnimationHandler animationHandler;
+
     void Start()
     {
-        
+        health = 2;
+        playerController = GetComponent<PlayerController>();
+        animationHandler = GetComponent<AnimationHandler>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SlowAndDamage(float speed,float duration)
     {
-        
+        playerController.ChangeSpeedTemporaily(speed,duration);
+        health -= 1;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+    public void InstantDeath()
+    {
+        health = 0;
+        Die();
+    }
+    public void Die()
+    {
+        //ав╠Б
     }
 }

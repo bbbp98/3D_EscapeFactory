@@ -41,4 +41,8 @@ public class AnimationHandler : MonoBehaviour
             col.center = new Vector3(0f, 1f, 0f);
         }
     }
+    public void DieAnimation()
+    {
+        //DieAnimation
+    }
 }
