@@ -9,7 +9,12 @@ public class ObstacleInstantDeath : ObstacleBase
         type = ObstacleType.InstantDeath;
     }
 
-    protected override void OnHitEffect()
+    /// <summary>
+    /// 플레이어를 즉사시킵니다.
+    /// </summary>
+    /// <param name="player">플레이어의 정보</param>
+    protected override void OnHitEffect(PlayerCondition player)
     {
+        player.InstantDeath();
     }
 }

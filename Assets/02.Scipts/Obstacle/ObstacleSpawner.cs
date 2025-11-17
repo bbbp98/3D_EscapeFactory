@@ -11,48 +11,40 @@ public class ObstacleSpawner : MonoBehaviour
 
     private bool[] trackBlocked = new bool[5];
 
+    /// <summary>
+    /// 랜덤 장애물을 생성합니다.
+    /// </summary>
+    /// <param name="tile"></param>
+    /// <returns>해당 레인에 장애물이 있는 지 판단하는 bool타입의 배열</returns>
     public bool[] SpawnObstaclesInTile(Tile tile)
     {
-        for (int i = 0; i < 5; i++)
-            trackBlocked[i] = false;
-
         if (tile == null) return null;
 
-        foreach (Transform point in tile.obstaclePoints)
+        ResetTrackBlock();
+
+        for (int i = 0; i < tile.lanes.Length; i++)
         {
-            if (point == null) continue;
-
-            float rand = Random.value;
-
-            // spawn obstacle
-            if (rand < spawnRate)
+            foreach (var point in tile.lanes[i].obstaclePoints)
             {
-                GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-                Instantiate(prefab, point.position, point.rotation, tile.transform);
-                int index = ConvertPointToTrack(point.position.x);
-                trackBlocked[index] = true;
+                if (point == null) continue;
+
+                float rand = Random.value;
+
+                if (rand < spawnRate)
+                {
+                    GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+                    Instantiate(prefab, point.position, point.rotation, tile.transform);
+                    trackBlocked[i] = true;
+                }
             }
         }
 
         return trackBlocked;
     }
 
-    private int ConvertPointToTrack(float posX)
+    private void ResetTrackBlock()
     {
-        switch (posX)
-        {
-            case -5.46f:
-                return 0;
-            case -2.73f:
-                return 1;
-            case 0f:
-                return 2;
-            case 2.73f:
-                return 3;
-            case 5.46f:
-                return 4;
-            default:
-                return -1;
-        }
+        for (int i = 0; i < 5; i++)
+            trackBlocked[i] = false;
     }
 }
