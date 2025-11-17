@@ -18,6 +18,6 @@ public class ObstacleSlow : ObstacleBase
     /// <param name="player">플레이어의 정보</param>
     protected override void OnHitEffect(PlayerCondition player)
     {
-        player.SlowAndDamage(0.5f, 5f);
+        player.Slow(slowValue, duration);
     }
 }
