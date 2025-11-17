@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
     {
         InitGame();
     }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.E)) StartGame();
+        if(Input.GetKeyUp(KeyCode.R)) GameOver();
+    }
     //난이도 설정 메서드
     public void SetDifficulty(GameDifficulty difficulty)    
     {
@@ -92,8 +97,8 @@ public class GameManager : MonoBehaviour
     {
         //카운트 다운 초기화
 
-        //정지상태
-        curState = GameState.Pause;
+        //카운트다운 상태
+        curState = GameState.CountDown;
         //플레이어 위치 초기화
         player.transform.position = Vector3.zero;
         //맵 생성 초기화
@@ -102,7 +107,7 @@ public class GameManager : MonoBehaviour
     //게임 플레이 시작
     public void StartGame()     //게임 시작 시 실행
     {
-        if (curState != GameState.Pause || curState != GameState.CountDown) return;
+        if (curState != GameState.Pause && curState != GameState.CountDown) return;
 
        
         //게임 시작 상태로 바꾸기
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         if(curState != GameState.Playing) return;
 
-        curState = GameState.GameOver;
+        curState = GameState.Pause;
         //모든 사물들 정지
         Pause();
         Debug.Log("게임 끝");
