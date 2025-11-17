@@ -7,6 +7,7 @@ public class AnimationHandler : MonoBehaviour
     public Animator anim;
     private CapsuleCollider col;
 
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -18,14 +19,17 @@ public class AnimationHandler : MonoBehaviour
     void Start()
     {
         col = GetComponent<CapsuleCollider>();
+        anim.SetBool("IsDie", false);
+
     }
     public void JumpAnimation()
     {
         anim.SetTrigger("Jump");
+        anim.SetBool("Landed", false);
     }
     public void NotJumpAnimation()
     {
-        anim.SetTrigger("Landed");
+        anim.SetBool("Landed",true);
     }
     public void SlidingAnimation(bool state)
     {
@@ -43,6 +47,11 @@ public class AnimationHandler : MonoBehaviour
     }
     public void DieAnimation()
     {
-        //DieAnimation
+        anim.SetBool("IsDie", true);
     }
+    public void DamagedAnimation()
+    {
+        anim.SetTrigger("Damaged");
+    }
+
 }

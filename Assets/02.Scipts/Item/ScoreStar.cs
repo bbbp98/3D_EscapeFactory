@@ -16,8 +16,10 @@ public class ScoreStar : ItemBase
         transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
     }
 
-    protected override void OnGetEffect()
+    protected override void OnGetEffect(PlayerCondition player)
     {
         // score up
+        //ScoreManager.Instance.AddScore(data.value);
+        //Debug.Log(ScoreManager.Instance.GetCurScore());
     }
 }
