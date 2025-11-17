@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 243730327}
   - component: {fileID: 243730326}
   - component: {fileID: 243730325}
+  - component: {fileID: 243730328}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -246,6 +247,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 187403138}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+--- !u!114 &243730328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243730324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf15df7c6f2ab249917339acddcd5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 543450653645739290}
+  offset: {x: 0, y: 6, z: -7}
+  followSpeed: 8
+  laneDistance: 2.73
+  laneIndex: 0
+  tiltAmount: 6
+  tiltSpeed: 5
 --- !u!1 &1073259579
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +892,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   slideDuration: 1
-  targetX: 0
   animationHandler: {fileID: 0}
 --- !u!114 &919132149107543974
 MonoBehaviour:
