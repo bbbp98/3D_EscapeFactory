@@ -26,14 +26,13 @@ public class _SceneManager : MonoBehaviour
     void Start()
     {
         sceneDic = scenes.ToDictionary();
+
+        OpenScene(SceneType.UI);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OpenScene(SceneType.Game);
-        }
+        
     }
 
     public void OpenScene(SceneType st)

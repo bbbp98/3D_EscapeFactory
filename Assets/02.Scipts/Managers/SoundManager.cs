@@ -12,17 +12,26 @@ public class SoundManager : MonoBehaviour
     public SerializableDictionary<BgmSounds, AudioClip> bgmSounds;
     public SerializableDictionary<UISounds, AudioClip> uiSounds;
     public SerializableDictionary<ClickSounds, AudioClip> clickSounds;
+
     // 실제 사용 사전
     private Dictionary<BgmSounds, AudioClip> bgmSoundDic = new Dictionary<BgmSounds, AudioClip>();
     private Dictionary<UISounds, AudioClip> uiSoundDic = new Dictionary<UISounds, AudioClip>();
     private Dictionary<ClickSounds, AudioClip> clickSoundDic = new Dictionary<ClickSounds, AudioClip>();
 
+    // 오디오 소스 리스트, 인덱스
+    [SerializeField]private List<AudioSource> bgmSources;
+    private int bgmIndex = 0;
+    [SerializeField] private List<AudioSource> clickSources;
+    private int clickIndex = 0;
+    [SerializeField] private List<AudioSource> uiSources;
+    private int uiIndex = 0;
+
     [Header("Sound Options")]
     public float fadeTime;
 
-    [SerializeField] private List<AudioSource> BgmSources;
-    [SerializeField] private List<AudioSource> sfxSources;
-    [SerializeField] private List<AudioSource> UISources;
+    public float bgmVolume;
+
+    public float sfxVolume;
 
     void Awake()
     {
@@ -30,9 +39,10 @@ public class SoundManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // PlayerPrefs에서 각 볼륨 값 불러와 적용 필요
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         bgmSoundDic = bgmSounds.ToDictionary();
@@ -44,29 +54,62 @@ public class SoundManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-
+            OnOffBgmAudio(BgmSounds.Main, true);
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            OnOffBgmAudio(BgmSounds.Main, false);
+        }
+    }
+
+    public void ChangeBgmVolume(float v)
+    {
+        bgmVolume = v;
+
+        foreach(AudioSource audioSource in bgmSources)
+        {
+            audioSource.volume = v;
+        }
+
+        // Playerprefs에 저장 필요
+    }
+
+    public void ChangeSfxVolume(float v)
+    {
+        sfxVolume = v;
+
+        foreach(AudioSource audioSource in uiSources)
+        {
+            audioSource.volume = v;
+        }
+
+        foreach(AudioSource audioSource in clickSources)
+        {
+            audioSource.volume = v;
+        }
+        // Playerprefs에 저장 필요
     }
 
     public void OnOffBgmAudio(BgmSounds bs, bool isOn)
     {
         if (isOn)
         {
-            AudioSource bgm = new AudioSource();
+            var bgm = bgmSources[bgmIndex];
             bgm.clip = bgmSoundDic[bs];
-            BgmSources.Add(bgm);
+            bgmIndex = (bgmIndex + 1) % bgmSources.Count;
 
             bgm.Play();
             StartCoroutine(FadeIn(bgm));
         }
         else
         {
-            for(int i = BgmSources.Count - 1; i >= 0; i--)
+            for(int i = bgmSources.Count - 1; i >= 0; i--)
             {
-                if(BgmSources[i].clip == bgmSoundDic[bs])
+                if(bgmSources[i].clip == bgmSoundDic[bs])
                 {
-                    StartCoroutine(FadeOut(BgmSources[i]));
-                    //BgmSources.Remove(BgmSources[i]);
+                    StartCoroutine(FadeOut(bgmSources[i]));
+                    StartCoroutine(StopAudio(bgmSources[i]));
                 }
             }
         }
@@ -105,7 +148,6 @@ public class SoundManager : MonoBehaviour
 
         if(audioSource != null)
         {
-            audioSource.Play();
             while(t < fadeTime)
             {
                 t += Time.fixedDeltaTime;
@@ -115,5 +157,14 @@ public class SoundManager : MonoBehaviour
             }
         }
         audioSource.Stop();
+    }
+
+    IEnumerator StopAudio(AudioSource audioSource)
+    {
+        yield return new WaitForSeconds(fadeTime);
+
+        audioSource.clip = null;
+
+        yield return null;
     }
 }

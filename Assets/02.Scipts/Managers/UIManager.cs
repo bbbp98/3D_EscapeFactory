@@ -62,4 +62,14 @@ public class UIManager : MonoBehaviour
         panelDic[pt].SetActive(false);
     }
 
+    public void SetBgmVolume(float v)
+    {
+        SoundManager.Instance.ChangeBgmVolume(v);
+    }
+
+    public void SetSfxVolume(float v)
+    {
+        SoundManager.Instance.ChangeSfxVolume(v);
+    }
+
 }
