@@ -37,6 +37,9 @@ public class TileSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 랜덤한 타일을 생성합니다.
+    /// </summary>
     private void SpawnTile()
     {
         Tile prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
