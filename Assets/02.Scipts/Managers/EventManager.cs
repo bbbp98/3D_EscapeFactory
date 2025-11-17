@@ -1,20 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-//게임 효과 관리 (아이템 효과, 버프/디버프 지속시간, 점수증가, 장애물 충돌. 
+//게임 효과 관리  
 
 public class EventManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static EventManager Instance { get; private set; }
+   
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

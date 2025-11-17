@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (EventManager.Instance == null)
+                new GameObject("EventManager").AddComponent<EventManager>();
         }
         else
         {
