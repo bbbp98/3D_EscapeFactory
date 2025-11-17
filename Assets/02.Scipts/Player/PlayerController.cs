@@ -112,4 +112,16 @@ public class PlayerController : MonoBehaviour
         }
         return false;
     }
+    public void ChangeSpeedTemporaily(float speed, float duration)
+    {
+        StartCoroutine(ChangeSpeedCoroutine(speed,duration));
+    }
+    private IEnumerator ChangeSpeedCoroutine(float speed, float duration)
+    {
+        float originSpeed = moveSpeed;
+        moveSpeed = speed;
+
+        yield return new WaitForSeconds(duration);
+        moveSpeed = originSpeed;
+    }
 }
