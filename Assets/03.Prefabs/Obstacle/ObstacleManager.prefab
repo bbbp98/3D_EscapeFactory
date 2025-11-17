@@ -66,8 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefabs:
   - {fileID: 1902222998981513122, guid: 296daee36dc1a9d4bac25501b08a0c8a, type: 3}
-  - {fileID: 8236785307180105055, guid: 3ebbff571409d1f4597f98305109210b, type: 3}
-  - {fileID: 6737555943956944818, guid: 77873db9f70b9674ebaa845a983161ca, type: 3}
+  - {fileID: 1902222998981513122, guid: b6687d7f78fefc24aadfc85498245a52, type: 3}
+  - {fileID: 1902222998981513122, guid: ead39b3e9d3a58b4d9efe20e1aaeb183, type: 3}
   tilesOnSceen: 10
   obstacleSpawner: {fileID: 8736778250574510074}
   itemSpawner: {fileID: 2767757516814498622}

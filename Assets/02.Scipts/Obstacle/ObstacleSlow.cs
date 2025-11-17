@@ -12,7 +12,12 @@ public class ObstacleSlow : ObstacleBase
         type = ObstacleType.Slow;
     }
 
-    protected override void OnHitEffect()
+    /// <summary>
+    /// 플레이어를 느려지게 합니다.
+    /// </summary>
+    /// <param name="player">플레이어의 정보</param>
+    protected override void OnHitEffect(PlayerCondition player)
     {
+        player.SlowAndDamage(0.5f, 5f);
     }
 }
