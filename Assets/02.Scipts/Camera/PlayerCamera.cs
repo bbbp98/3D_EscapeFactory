@@ -15,20 +15,16 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (target != null) return;
+        if (target == null) return;
 
-        Vector3 basePos = target.position + offset;
-
-        float laneX = laneIndex * laneDistance;
-        basePos.x = laneX;
+        Vector3 basePos = target.position + offset;             //타겟 위치 + 오프셋
 
         transform.position = Vector3.Lerp
             (
-            transform.position, basePos, followSpeed * Time.deltaTime
+            transform.position,
+            basePos,
+            followSpeed * Time.deltaTime
             );
-
-        float targetTilt = laneIndex * -tiltAmount;
-        Quaternion tiltRot = Quaternion.Euler(0, 0, targetTilt);
 
         Quaternion lookRot = Quaternion.LookRotation(
             (target.position + Vector3.forward * 10f) - transform.position
@@ -36,7 +32,7 @@ public class PlayerCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Lerp(
             transform.rotation,
-            tiltRot * lookRot,
+            lookRot,
             tiltSpeed * Time.deltaTime);
     }
 }
