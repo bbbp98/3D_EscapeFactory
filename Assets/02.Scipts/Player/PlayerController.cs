@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,14 +25,14 @@ public class PlayerController : MonoBehaviour
 
 
     private int currentLane = 2;
-    public float targetX;
+    private Vector3 targetPosition;
     public AnimationHandler animationHandler;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
-        targetX = transform.position.x;
+        targetPosition = transform.position;
         animationHandler = GetComponent<AnimationHandler>();
         if(animationHandler == null)
         {
@@ -46,12 +47,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
-        Vector3 newPos = transform.position;
-        newPos.x = Mathf.Lerp(newPos.x, targetX, Time.deltaTime * smoothSpeed);
-        transform.position = newPos;
-
+        float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
+        
+        Vector3 newPos = new Vector3(targetPosition.x,transform.position.y,nextZ);
+        transform.position = Vector3.MoveTowards(transform.position, newPos, smoothSpeed * Time.deltaTime);
         if (isJumping && IsGrounded())
         {
             isJumping = false;
@@ -64,7 +63,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed && currentLane > 0)
         {
             currentLane--;
-            targetX = (currentLane-2) * laneDistance;
+            targetPosition.x = (currentLane-2) * laneDistance;
         }
     }
     public void OnMoveRight(InputAction.CallbackContext context)
@@ -72,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed && currentLane < 4)
         {
             currentLane++;
-            targetX = (currentLane-2) * laneDistance;
+            targetPosition.x = (currentLane-2) * laneDistance;
         }
     }
     public void OnJump(InputAction.CallbackContext context)
