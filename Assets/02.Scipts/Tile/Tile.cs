@@ -5,11 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public Transform[] obstaclePoints;
-
-    #region test code
-    public ObstacleSpawner os;
-
-    #endregion
+    public Transform[] starPoints;
 
     private void OnDrawGizmos()
     {
@@ -20,6 +16,15 @@ public class Tile : MonoBehaviour
         {
             if (t == null) continue;
 
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(t.position, 0.3f);
+        }
+
+        foreach (Transform t in starPoints)
+        {
+            if (t == null) continue;
+
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(t.position, 0.3f);
         }
     }
