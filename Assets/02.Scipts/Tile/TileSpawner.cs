@@ -9,6 +9,7 @@ public class TileSpawner : MonoBehaviour
     private float tileLength = 23f;
 
     [SerializeField] private ObstacleSpawner obstacleSpawner;
+    [SerializeField] private ItemSpawner itemSpawner;
 
     [Header("Player Transform")]
     [SerializeField] Transform playerTr;
@@ -16,6 +17,7 @@ public class TileSpawner : MonoBehaviour
     private float spawnZ = 46f;
 
     private Queue<Tile> activeTiles = new Queue<Tile>();
+    private bool[] trackBlocked = new bool[5];
 
 
     private void Start()
@@ -43,7 +45,8 @@ public class TileSpawner : MonoBehaviour
         spawnZ += tileLength;
 
         activeTiles.Enqueue(tile);
-        obstacleSpawner.SpawnObstaclesInTile(tile);
+        trackBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
+        itemSpawner.SpawnStarsInTile(tile, trackBlocked);
     }
 
     private void DisableTile()
