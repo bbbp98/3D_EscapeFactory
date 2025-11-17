@@ -10,6 +10,8 @@ public class EndPanel : MonoBehaviour
     public TextMeshProUGUI bestScore;
     public TextMeshProUGUI bestScoreText;
 
+    
+
     public int curScoreNum;
 
     public int bestScoreNum;
@@ -21,18 +23,26 @@ public class EndPanel : MonoBehaviour
 
     private void UpdateEndPanel()
     {
+        ScoreManager.Instance.SaveScore();
+        curScoreNum = ScoreManager.Instance.GetCurScore();
+        bestScoreNum = ScoreManager.Instance.GetBestScore();
         // 현재 점수 적용
-        StartCoroutine(ElevateNum(9999, curScore));
+        StartCoroutine(ElevateNum(curScoreNum, curScore));
         // 최고 점수 적용
-        StartCoroutine(ElevateNum(9999, bestScore));
-        // 최고 점수 갱신 연출 적용
-        StartCoroutine(ElevateText(bestScoreText));
+        StartCoroutine(ElevateNum(bestScoreNum, bestScore));
+
+
+        bestScoreText.gameObject.SetActive(false);
+        if(curScoreNum == bestScoreNum)
+        {
+            // 최고 점수 갱신 연출 적용
+            bestScoreText.gameObject.SetActive(true);
+            StartCoroutine(ElevateText(bestScoreText));
+        }
+        
     }
 
-    private void GetScore()
-    {
-        // ScoreManager로부터 현재 점수, 최고 점수 획득
-    }
+    
 
     IEnumerator ElevateNum(int num, TextMeshProUGUI targetText)
     {

@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
     // 실제 사용 사전
     private Dictionary<PanelType, GameObject> panelDic = new Dictionary<PanelType, GameObject>();
 
+    [Header("UI parameters")]
+
+    public float popupTime;
+    public float popupRatio;
+
     void Awake()
     {
         // 싱글톤
@@ -50,16 +55,18 @@ public class UIManager : MonoBehaviour
         panelDic = panels.ToDictionary();
     }
 
-    public void OpenUI(PanelType pt)
+    public void OpenUI(GameObject go)
     {
         // 패널 활성화
-        panelDic[pt].SetActive(true);
+        StartCoroutine(PopUI(go, true));
+        //panelDic[pt].SetActive(true);
     }
 
-    public void CloseUI(PanelType pt)
+    public void CloseUI(GameObject go)
     {
         // 패널 비활성화
-        panelDic[pt].SetActive(false);
+        StartCoroutine(PopUI(go, false));
+        //panelDic[pt].SetActive(false);
     }
 
     public void SetBgmVolume(float v)
@@ -70,6 +77,39 @@ public class UIManager : MonoBehaviour
     public void SetSfxVolume(float v)
     {
         SoundManager.Instance.ChangeSfxVolume(v);
+    }
+
+    IEnumerator PopUI(GameObject panel, bool tf)
+    {
+        float t = 0f;
+        float ratio = 0f;
+
+        if (tf)
+        {
+            if (!panel.activeInHierarchy)
+            {
+                panel.SetActive(true);
+            }
+        }
+
+        if(panel.TryGetComponent<RectTransform>(out RectTransform rtrans))
+        {
+            Debug.Log("get rect transform");
+            while(t < popupTime)
+            {
+                t += Time.fixedDeltaTime;
+
+                ratio = tf ? Mathf.Lerp(popupRatio, 1f, t / popupTime) : Mathf.Lerp(1f, popupRatio, t / popupTime);
+            
+                rtrans.localScale = new Vector3( ratio, ratio, 1);
+                yield return new WaitForFixedUpdate();
+            }        
+        }
+
+        if (!tf)
+        {
+            panel.SetActive(false);
+        }
     }
 
 }

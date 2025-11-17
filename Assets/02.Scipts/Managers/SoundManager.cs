@@ -39,8 +39,6 @@ public class SoundManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // PlayerPrefs에서 각 볼륨 값 불러와 적용 필요
     }
 
     void Start()
@@ -48,6 +46,8 @@ public class SoundManager : MonoBehaviour
         bgmSoundDic = bgmSounds.ToDictionary();
         uiSoundDic = uiSounds.ToDictionary();
         clickSoundDic = clickSounds.ToDictionary();
+
+        LoadVolumes();
     }
 
     void Update()
@@ -73,6 +73,7 @@ public class SoundManager : MonoBehaviour
         }
 
         // Playerprefs에 저장 필요
+        SaveBgmVolume();
     }
 
     public void ChangeSfxVolume(float v)
@@ -88,7 +89,25 @@ public class SoundManager : MonoBehaviour
         {
             audioSource.volume = v;
         }
+
         // Playerprefs에 저장 필요
+        SaveSfxVolume();
+    }
+    
+    private void SaveBgmVolume()
+    {
+        PlayerPrefs.SetFloat("BgmVolume", bgmVolume);
+    }
+
+    private void SaveSfxVolume()
+    {
+        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+    }
+
+    public void LoadVolumes()
+    {
+        ChangeBgmVolume(PlayerPrefs.GetFloat("BgmVolume", 1f));
+        ChangeSfxVolume(PlayerPrefs.GetFloat("SfxVolume", 1f));
     }
 
     public void OnOffBgmAudio(BgmSounds bs, bool isOn)
@@ -135,7 +154,7 @@ public class SoundManager : MonoBehaviour
             while(t < fadeTime)
             {
                 t += Time.fixedDeltaTime;
-                audioSource.volume = Mathf.Lerp(0, 1, t/fadeTime);
+                audioSource.volume = Mathf.Lerp(0, bgmVolume, t/fadeTime);
 
                 yield return new WaitForFixedUpdate();          
             }
@@ -151,7 +170,7 @@ public class SoundManager : MonoBehaviour
             while(t < fadeTime)
             {
                 t += Time.fixedDeltaTime;
-                audioSource.volume = Mathf.Lerp(1, 0, t/fadeTime);
+                audioSource.volume = Mathf.Lerp(bgmVolume, 0, t/fadeTime);
 
                 yield return new WaitForFixedUpdate();         
             }
