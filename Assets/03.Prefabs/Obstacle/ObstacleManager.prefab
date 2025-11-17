@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5390995630713504738}
   - component: {fileID: 8736778250574510074}
   - component: {fileID: 4974964997450852510}
+  - component: {fileID: 2767757516814498622}
   m_Layer: 0
   m_Name: ObstacleManager
   m_TagString: Untagged
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51cec79d115944484f1bd07c75804a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.5
+  spawnRate: 0.7
   obstaclePrefabs:
   - {fileID: 605236277191783507, guid: 531d5270bf2de544a882601a1ac58cc1, type: 3}
   - {fileID: 7732619241625229238, guid: 255862ef983f58f43885578edd349d24, type: 3}
@@ -67,6 +68,20 @@ MonoBehaviour:
   - {fileID: 1902222998981513122, guid: 296daee36dc1a9d4bac25501b08a0c8a, type: 3}
   - {fileID: 8236785307180105055, guid: 3ebbff571409d1f4597f98305109210b, type: 3}
   - {fileID: 6737555943956944818, guid: 77873db9f70b9674ebaa845a983161ca, type: 3}
-  tilesOnSceen: 5
-  playerTr: {fileID: 0}
+  tilesOnSceen: 10
   obstacleSpawner: {fileID: 8736778250574510074}
+  itemSpawner: {fileID: 2767757516814498622}
+  playerTr: {fileID: 0}
+--- !u!114 &2767757516814498622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714465149159727921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6235bb5a5e2b8ef4c8a741fd49f6318e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starPrefab: {fileID: 8970758398595027587, guid: 2deb3f5a681484341a207745931829e9, type: 3}

@@ -9,9 +9,14 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Obstacle Prefabs")]
     [SerializeField] private GameObject[] obstaclePrefabs;
 
-    public void SpawnObstaclesInTile(Tile tile)
+    private bool[] trackBlocked = new bool[5];
+
+    public bool[] SpawnObstaclesInTile(Tile tile)
     {
-        if (tile == null) return;
+        for (int i = 0; i < 5; i++)
+            trackBlocked[i] = false;
+
+        if (tile == null) return null;
 
         foreach (Transform point in tile.obstaclePoints)
         {
@@ -24,7 +29,30 @@ public class ObstacleSpawner : MonoBehaviour
             {
                 GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
                 Instantiate(prefab, point.position, point.rotation, tile.transform);
+                int index = ConvertPointToTrack(point.position.x);
+                trackBlocked[index] = true;
             }
+        }
+
+        return trackBlocked;
+    }
+
+    private int ConvertPointToTrack(float posX)
+    {
+        switch (posX)
+        {
+            case -5.46f:
+                return 0;
+            case -2.73f:
+                return 1;
+            case 0f:
+                return 2;
+            case 2.73f:
+                return 3;
+            case 5.46f:
+                return 4;
+            default:
+                return -1;
         }
     }
 }
