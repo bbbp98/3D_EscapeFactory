@@ -12,9 +12,10 @@ public class PlayerController : MonoBehaviour
     public float smoothSpeed = 10f; //대각선 이동
 
     [Header("Jump")]
-    public float jumpPower = 7f;
+    public float jumpPower = 20;
     public LayerMask groundLayerMask;
     private bool isJumping = false;
+    public float customGravity = 20f;
 
     [Header("Slide")]
     public float slideDuration = 1f;
@@ -43,7 +44,12 @@ public class PlayerController : MonoBehaviour
             animationHandler.NotJumpAnimation();
         }
     }
-
+    void FixedUpdate()
+    {
+        float gravityMultiplier = IsGrounded() ? 1f : 2f;
+        rb.AddForce(Vector3.down * customGravity * gravityMultiplier, ForceMode.Acceleration);
+     
+    }
 
     void Update()
     {
@@ -116,10 +122,10 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(ChangeSpeedCoroutine(speed,duration));
     }
-    private IEnumerator ChangeSpeedCoroutine(float speed, float duration)
+    private IEnumerator ChangeSpeedCoroutine(float multiplier, float duration)
     {
         float originSpeed = moveSpeed;
-        moveSpeed = speed;
+        moveSpeed = originSpeed * multiplier;
 
         yield return new WaitForSeconds(duration);
         moveSpeed = originSpeed;
