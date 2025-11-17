@@ -1,25 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //게임 상태, 카운트 다운, 게임 오버/클리어
+public enum GameState
+{
+    Pause,      //정지
+    CountDown,  //카운트 다운
+    Playing,    //실행 
+    GameOver    //게임 끝
+}   
+
 public enum GameDifficulty
 {
-    Easy,
-    Normal,
-    Hard
+    Easy,   //0.8배속
+    Normal,     //1배속
+    Hard    //1.2배속
 }
 
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameObject player;
+
+    [Header("Difficulty Info")]     //난이도 현재 단계
+    [SerializeField] private GameDifficulty curDifficulty = GameDifficulty.Normal;
+    public GameDifficulty CurDifficulty => curDifficulty;
+
+    [Header("Difficulty Speed")]    //난이도 별 속도 
+    [SerializeField] private float difficultySpeed = 1f;
+    public float DifficultySpeed => difficultySpeed;
+
+    [Header("State Info")]
+    [SerializeField] private GameState curState;
+    public GameState CurState => curState;
 
     private static GameManager _instance;
 
+    public bool isPaused { get; private set; }
     public static GameManager Instance
     {
-        get
+        get // 재시작 시 게임 매니저를 참조한 다른 스크립트에서 찾을려고 할 때 null뜰 수 있음
         {
             if (_instance == null)
             {
@@ -45,33 +67,115 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        InitGame();
+    }
+    //난이도 설정 메서드
+    public void SetDifficulty(GameDifficulty difficulty)    
+    {
+        curDifficulty = difficulty;
+        switch (difficulty)
+        {
+            case GameDifficulty.Easy:
+                difficultySpeed = 0.8f;
+                break;
+            case GameDifficulty.Normal:
+                difficultySpeed = 1f;
+                break;
+            case GameDifficulty.Hard:
+                difficultySpeed = 1.2f;
+                break;
+        }
     }
 
+    //게임 설정 초기화
     public void InitGame()
     {
-        StartGame();
-        //if (~ ~)
-            //GameOver();
+        //카운트 다운 초기화
+
+        //정지상태
+        curState = GameState.Pause;
+        //플레이어 위치 초기화
+        player.transform.position = Vector3.zero;
+        //맵 생성 초기화
     }
-    public void StartGame()
+
+    //게임 플레이 시작
+    public void StartGame()     //게임 시작 시 실행
     {
+        if (curState != GameState.Pause || curState != GameState.CountDown) return;
+
+       
+        //게임 시작 상태로 바꾸기
+        curState = GameState.Playing;
+        //난이도에 따른 속도 적용
+
+        Resume();
+
         Debug.Log("게임 시작");
-        //모든 사물들을 첫 위치로 초기화
-        
     }
-    public void GameOver()
+
+    //게임 끝 났을 때 
+    public void GameOver()      //플레이어 사망 시 실행
     {
+        if(curState != GameState.Playing) return;
+
+        curState = GameState.GameOver;
         //모든 사물들 정지
+        Pause();
+        Debug.Log("게임 끝");
         //endPanel 띄우기
+
     }
-    public void ReStart()
+
+    //게임 재시작
+    IEnumerator ReStartRoutine()    //restart 버튼 누르면 실행
     {
-        //모든 사물들 처음으로 초기화
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작
+
+        yield return null;
+
+        player = FindObjectOfType<PlayerController>().gameObject;
+        InitGame();
     }
-    public void StopGame()
+
+    //게임 멈추기
+    public void SettingInGame()     //일시정지 버튼 누르면 실행
     {
-        //사물 정지
-        //일시정지 UI띄우기
+        Pause();
+        //settingPanel
+    }
+    public void Pause()
+    {
+        if(isPaused) return;
+        isPaused = true;
+        Time.timeScale = 0f;
+        if (curState == GameState.Playing)
+            curState = GameState.Pause;
+    }
+    public void Resume()
+    {
+        if(!isPaused) return;
+        isPaused = false;
+        Time.timeScale = 1f;
+        if(curState == GameState.Pause) 
+            curState = GameState.Playing;
+    }
+
+    //카운트 다운 메서드
+    private IEnumerator CountDown()
+    {
+        curState = GameState.CountDown;
+
+        int count = 3;
+
+        while (count > 0)
+        {
+            Debug.Log(count);   //여기에 UI, SOUND 
+            yield return new WaitForSeconds(1f);
+            count--;
+        }
+        Debug.Log("시작");
+        yield return new WaitForSeconds(0.5f);
+        StartGame();
     }
 }
