@@ -42,7 +42,7 @@ public class PlayerCondition : MonoBehaviour
         //죽기
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         Debug.Log("충돌 감지됨"+other.name);
         if (other.CompareTag("Object"))
@@ -50,5 +50,5 @@ public class PlayerCondition : MonoBehaviour
             Debug.Log("object 태그 맞음");
             Damaged();
         }   
-    }
+    }*/
 }

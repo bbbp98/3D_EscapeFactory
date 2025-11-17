@@ -7,6 +7,7 @@ public class AnimationHandler : MonoBehaviour
     public Animator anim;
     private CapsuleCollider col;
 
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -19,6 +20,7 @@ public class AnimationHandler : MonoBehaviour
     {
         col = GetComponent<CapsuleCollider>();
         anim.SetBool("IsDie", false);
+
     }
     public void JumpAnimation()
     {
@@ -51,4 +53,5 @@ public class AnimationHandler : MonoBehaviour
     {
         anim.SetTrigger("Damaged");
     }
+
 }
