@@ -1043,7 +1043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8264597530212333464}
   - component: {fileID: 914559582258153379}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5598,7 +5598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3068849880329182603}
   - component: {fileID: 8669792581426323066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8711,7 +8711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6038408866496476327}
   - component: {fileID: 1961557246312327236}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

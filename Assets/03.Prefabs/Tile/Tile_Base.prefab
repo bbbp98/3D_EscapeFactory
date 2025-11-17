@@ -1976,7 +1976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929186647055117886}
   - component: {fileID: 2149724653606710167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2936,7 +2936,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  os: {fileID: 0}
+  starPoints: []
 --- !u!1 &7466935116777908248
 GameObject:
   m_ObjectHideFlags: 0
