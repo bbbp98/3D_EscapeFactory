@@ -1641,7 +1641,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 407505639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002067296}
+        m_TargetAssemblyTypeName: _SceneManager, Assembly-CSharp
+        m_MethodName: LoadTitle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &407505639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7008,7 +7020,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1983977577}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002067296}
+        m_TargetAssemblyTypeName: _SceneManager, Assembly-CSharp
+        m_MethodName: LoadTitle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1983977577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7078,10 +7102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
     pairs:
-    - key: 2
-      value: {fileID: 102900000, guid: 9ff484860d2c401488887501ecb4a499, type: 3}
     - key: 1
       value: {fileID: 102900000, guid: 3375c3281616dc9429fdaec70bb13a5d, type: 3}
+    - key: 0
+      value: {fileID: 102900000, guid: 236374fd32573aa4c92e0d97b1054d92, type: 3}
 --- !u!4 &2002067297
 Transform:
   m_ObjectHideFlags: 0

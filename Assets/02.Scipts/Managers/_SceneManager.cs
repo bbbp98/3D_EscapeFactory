@@ -27,18 +27,32 @@ public class _SceneManager : MonoBehaviour
 
     void Start()
     {
-        //OpenScene(SceneType.UI);
-        OpenScene(SceneType.Game);
+        OpenScene(SceneType.Title);
+        UIManager.Instance.QuickUIOnOff(PanelType.InGame, false);
+        //StartCoroutine(GameManager.Instance.CountDown());
+        
+    }
+
+    public void LoadGame()
+    {
+        UIManager.Instance.QuickUIOnOff(PanelType.InGame, true);
+        UIManager.Instance.QuickUIOnOff(PanelType.GameOver, false);
+        UIManager.Instance.QuickUIOnOff(PanelType.Settings, false);
+        SceneManager.LoadScene(sceneDic[SceneType.Game].name);
         StartCoroutine(GameManager.Instance.CountDown());
     }
 
-    void Update()
-    {
-        
-    }
 
     public void OpenScene(SceneType st)
     {
         SceneManager.LoadScene(sceneDic[st].name);
-    } 
+    }
+
+    public void LoadTitle()
+    {
+        SceneManager.LoadScene(sceneDic[SceneType.Title].name);
+        UIManager.Instance.QuickUIOnOff(PanelType.InGame, false);
+        UIManager.Instance.QuickUIOnOff(PanelType.GameOver, false);
+        UIManager.Instance.QuickUIOnOff(PanelType.Settings, false);
+    }
 }

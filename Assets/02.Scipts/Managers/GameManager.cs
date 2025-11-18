@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         curState = GameState.Pause;
         
         //UI, Sound 초기화
-        UIManager.Instance.CallUIOnOff(PanelType.InGame, true);
+        //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
     }

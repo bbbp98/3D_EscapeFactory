@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/01.Scenes/TitleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/01.Scenes/UIScene.unity
-    guid: 9ff484860d2c401488887501ecb4a499
+    path: Assets/01.Scenes/TitleScene_Test.unity
+    guid: 236374fd32573aa4c92e0d97b1054d92
   - enabled: 1
     path: Assets/01.Scenes/MainScene.unity
     guid: 3375c3281616dc9429fdaec70bb13a5d

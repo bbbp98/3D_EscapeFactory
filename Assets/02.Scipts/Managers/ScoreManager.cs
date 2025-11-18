@@ -48,4 +48,9 @@ public class ScoreManager : MonoBehaviour
         return bestScore;
     }
 
+    public void ResetCurScore()
+    {
+        curScore = 0;
+    }
+
 }

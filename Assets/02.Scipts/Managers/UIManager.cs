@@ -57,6 +57,11 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void QuickUIOnOff(PanelType pt, bool tf)
+    {
+        panelDic[pt].SetActive(tf);
+    }
+
     // 버튼 OnClick 전용
     public void OpenUI(GameObject go)
     {
@@ -124,6 +129,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickRestart()
     {
-        GameManager.Instance.ReStartRoutine();
+        ScoreManager.Instance.ResetCurScore();
+
+        GameManager.Instance.ReStartRoutine();    
     }
 }
