@@ -30,7 +30,7 @@ public class ItemBase : MonoBehaviour, IPoolObject
     }
 
     /// <summary>
-    /// 플레이어가 아이템을 획득했을 때의 효과를 실행합니다.
+    /// 플레이어가 아이템을 획득했을 때의 효과
     /// </summary>
     protected virtual void OnGetEffect(PlayerCondition player) { }
 

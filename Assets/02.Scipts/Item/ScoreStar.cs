@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ScoreStar : ItemBase
 {
     protected override void OnGetEffect(PlayerCondition player)

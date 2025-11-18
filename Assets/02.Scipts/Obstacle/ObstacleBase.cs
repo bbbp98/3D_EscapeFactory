@@ -37,7 +37,8 @@ public class ObstacleBase : MonoBehaviour, IPoolObject
     }
 
     /// <summary>
-    /// 플레이어와 충돌이 일어났을 때의 효과를 실행합니다. 체력 감소는 Base에서 실행하고 있습니다.
+    /// 플레이어와 충돌이 일어났을 때의 효과를 실행.
+    /// 체력 감소는 Base에서 실행
     /// ex) 이동속도 저하
     /// </summary>
     /// <param name="player">플레이어의 정보</param>
