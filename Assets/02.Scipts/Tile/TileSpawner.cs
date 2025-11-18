@@ -6,26 +6,25 @@ public class TileSpawner : MonoBehaviour
     [Header("Setting Tiles")]
     [SerializeField] private Tile[] tilePrefabs;
     [SerializeField] private int tilesOnSceen;
-    private float tileLength = 23f;
 
+    private float tileLength = 23f;
+    private float spawnZ = 46f;
+
+    [Header("Spawner")]
     [SerializeField] private ObstacleSpawner obstacleSpawner;
     [SerializeField] private ItemSpawner itemSpawner;
 
     [Header("Player Transform")]
-    [SerializeField] Transform playerTr;
-
-    private float spawnZ = 46f;
+    [SerializeField] private Transform playerTr;
 
     private Queue<Tile> activeTiles = new Queue<Tile>();
-    private bool[] trackBlocked = new bool[5];
+    private bool[] laneBlocked = new bool[5];
 
+    private Transform tileRoot;
 
     private void Start()
     {
-        for (int i = 0; i < tilesOnSceen; i++)
-        {
-            SpawnTile();
-        }
+        Restart();
     }
 
     private void Update()
@@ -42,18 +41,43 @@ public class TileSpawner : MonoBehaviour
     /// </summary>
     private void SpawnTile()
     {
+        //Tile prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
+        //Tile tile = Instantiate(prefab, Vector3.forward * spawnZ, Quaternion.identity);
+
+        //spawnZ += tileLength;
+
+        //activeTiles.Enqueue(tile);
+        //trackBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
+        //itemSpawner.SpawnStarsInTile(tile, trackBlocked);
+
         Tile prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
-        Tile tile = Instantiate(prefab, Vector3.forward * spawnZ, Quaternion.identity);
+
+        Tile tile = PoolManager.Instance.Get(prefab.name).GetComponent<Tile>();
+        tile.transform.position = Vector3.forward * spawnZ;
 
         spawnZ += tileLength;
 
         activeTiles.Enqueue(tile);
-        trackBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
-        itemSpawner.SpawnStarsInTile(tile, trackBlocked);
+
+        laneBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
+        itemSpawner.SpawnStarsInTile(tile, laneBlocked);
     }
 
     private void DisableTile()
     {
-        Destroy(activeTiles.Dequeue().gameObject);
+        //Destroy(activeTiles.Dequeue().gameObject);
+
+        Tile oldTile = activeTiles.Dequeue();
+        PoolManager.Instance.Release(oldTile.gameObject);
+    }
+
+    public void Restart()
+    {
+        spawnZ = 46f;
+
+        for (int i = 0; i < tilesOnSceen; i++)
+        {
+            SpawnTile();
+        }
     }
 }

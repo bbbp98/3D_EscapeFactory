@@ -7,11 +7,13 @@ public enum ObstacleType
     InstantDeath,
 }
 
-public class ObstacleBase : MonoBehaviour
+public class ObstacleBase : MonoBehaviour, IPoolObject
 {
     [SerializeField] protected ObstacleType type;
 
     private bool isConflict = false;
+    public string Key { get; set; }
+    
 
     private void Reset()
     {
@@ -28,6 +30,9 @@ public class ObstacleBase : MonoBehaviour
         {
             isConflict = true;  // 중복 충돌 방지
             OnHitEffect(player);
+
+            PoolManager.Instance.Release(gameObject);
+            return;
         }
     }
 
@@ -39,5 +44,15 @@ public class ObstacleBase : MonoBehaviour
     protected virtual void OnHitEffect(PlayerCondition player)  // 충돌했을 때 이펙트
     {
         player.Damaged();
-    }    
+    }
+
+    public void OnSpawnFromPool()
+    {
+        isConflict = false;
+    }
+
+    public void OnReturnToPool()
+    {
+        isConflict = false;
+    }
 }

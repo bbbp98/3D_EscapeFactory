@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &714465149159727921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5390995630713504738}
+  - component: {fileID: 6590522936655024975}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5390995630713504738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714465149159727921}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7481145879344287286}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6590522936655024975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714465149159727921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2682f7314e1001a4b8e5f512ca3091b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - key: Tile_01
+    prefab: {fileID: 1371092447329049544, guid: 296daee36dc1a9d4bac25501b08a0c8a, type: 3}
+    poolSize: 5
+  - key: Tile_02
+    prefab: {fileID: 1371092447329049544, guid: b6687d7f78fefc24aadfc85498245a52, type: 3}
+    poolSize: 5
+  - key: Tile_03
+    prefab: {fileID: 1371092447329049544, guid: ead39b3e9d3a58b4d9efe20e1aaeb183, type: 3}
+    poolSize: 5
+  - key: Tile_04
+    prefab: {fileID: 1371092447329049544, guid: 98550813126dd0f4d8ccfbc5447f6ffa, type: 3}
+    poolSize: 5
+  - key: Score_Star
+    prefab: {fileID: 8970758398595027587, guid: 2deb3f5a681484341a207745931829e9, type: 3}
+    poolSize: 50
+  - key: Obstacle_Arch
+    prefab: {fileID: 2678121231578240484, guid: 875956756894ea940944bfc3e04a5645, type: 3}
+    poolSize: 20
+  - key: Obstacle_Barrier
+    prefab: {fileID: 4234439562725151125, guid: 8526d11cb150e0441847164437cfd6f2, type: 3}
+    poolSize: 20
+  - key: Obstacle_Cone
+    prefab: {fileID: 605236277191783507, guid: 531d5270bf2de544a882601a1ac58cc1, type: 3}
+    poolSize: 20
+  - key: Obstacle_Jump
+    prefab: {fileID: 7732619241625229238, guid: 255862ef983f58f43885578edd349d24, type: 3}
+    poolSize: 20
+  - key: Obstacle_Slide
+    prefab: {fileID: 168870806385388011, guid: 5275162681b2eec41848b7681a6256f3, type: 3}
+    poolSize: 20
+--- !u!1 &8240462918483679112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7481145879344287286}
+  - component: {fileID: 5329230486686054277}
+  - component: {fileID: 1173631505253986211}
+  - component: {fileID: 2854384576112550479}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7481145879344287286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240462918483679112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5390995630713504738}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5329230486686054277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240462918483679112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce51cec79d115944484f1bd07c75804a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 0.7
+  obstaclePrefabs:
+  - {fileID: 605236277191783507, guid: 531d5270bf2de544a882601a1ac58cc1, type: 3}
+  - {fileID: 7732619241625229238, guid: 255862ef983f58f43885578edd349d24, type: 3}
+  - {fileID: 168870806385388011, guid: 5275162681b2eec41848b7681a6256f3, type: 3}
+  - {fileID: 2678121231578240484, guid: 875956756894ea940944bfc3e04a5645, type: 3}
+  - {fileID: 4234439562725151125, guid: 8526d11cb150e0441847164437cfd6f2, type: 3}
+--- !u!114 &1173631505253986211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240462918483679112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2b13b5fb70c8f4f841baf4cdb543f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefabs:
+  - {fileID: 1902222998981513122, guid: 296daee36dc1a9d4bac25501b08a0c8a, type: 3}
+  - {fileID: 1902222998981513122, guid: b6687d7f78fefc24aadfc85498245a52, type: 3}
+  - {fileID: 1902222998981513122, guid: ead39b3e9d3a58b4d9efe20e1aaeb183, type: 3}
+  - {fileID: 1902222998981513122, guid: 98550813126dd0f4d8ccfbc5447f6ffa, type: 3}
+  tilesOnSceen: 10
+  obstacleSpawner: {fileID: 5329230486686054277}
+  itemSpawner: {fileID: 2854384576112550479}
+  playerTr: {fileID: 0}
+--- !u!114 &2854384576112550479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240462918483679112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6235bb5a5e2b8ef4c8a741fd49f6318e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starPrefab: {fileID: 8970758398595027587, guid: 2deb3f5a681484341a207745931829e9, type: 3}

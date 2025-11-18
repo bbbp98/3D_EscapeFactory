@@ -13,19 +13,21 @@ public class ItemSpawner : MonoBehaviour
     /// </summary>
     /// <param name="tile">아이템을 생성할 타일 정보</param>
     /// <param name="trackBlocked">레인에 장애물이 있는지에 대한 정보가 담긴 배열</param>
-    public void SpawnStarsInTile(Tile tile, bool[] trackBlocked)
+    public void SpawnStarsInTile(Tile tile, bool[] laneBlocked)
     {
         if (tile == null) return;
 
-        for (int i = 0; i < tile.lanes.Length; i++)
+        for (int lane = 0; lane < tile.lanes.Length; lane++)
         {
-            foreach (var point in tile.lanes[i].starPoints)
+            if (laneBlocked[lane]) continue;
+
+            foreach (var point in tile.lanes[lane].starPoints)
             {
-                if (trackBlocked[i]) break;
+                GameObject go = PoolManager.Instance.Get(starPrefab.name);
+                go.transform.SetPositionAndRotation(point.position, point.rotation);
 
-                if (point == null) continue;
-
-                Instantiate(starPrefab, point.position, point.rotation, tile.transform);
+                Transform parent = Application.isPlaying ? tile.dynamicRoot : tile.transform;
+                go.transform.SetParent(parent);
             }
         }
     }
