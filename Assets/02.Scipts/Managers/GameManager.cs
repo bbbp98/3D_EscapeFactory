@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
     }
     private void Start()
     {
@@ -99,11 +100,11 @@ public class GameManager : MonoBehaviour
         //초기 상태
         curState = GameState.Pause;
         //플레이어 위치 초기화
-        player.transform.position = Vector3.zero;
+        //player.transform.position = Vector3.zero;
         //UI, Sound 초기화
-        //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
-        //UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
-        //UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
+        UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
+        UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
+        UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
     }
 
     //게임 플레이 시작

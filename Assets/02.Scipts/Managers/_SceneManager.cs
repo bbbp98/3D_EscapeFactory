@@ -21,12 +21,12 @@ public class _SceneManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        sceneDic = scenes.ToDictionary();
     }
 
     void Start()
     {
-        sceneDic = scenes.ToDictionary();
-
         OpenScene(SceneType.UI);
     }
 

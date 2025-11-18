@@ -47,12 +47,14 @@ public class UIManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // 사전 초기화 
+        panelDic = panels.ToDictionary();
     }
 
     void Start()
     {
-        // 사전 초기화 
-        panelDic = panels.ToDictionary();
+        
     }
 
     // 버튼 OnClick 전용

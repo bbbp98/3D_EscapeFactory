@@ -39,10 +39,7 @@ public class SoundManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    void Start()
-    {
         bgmSoundDic = bgmSounds.ToDictionary();
         uiSoundDic = uiSounds.ToDictionary();
         clickSoundDic = clickSounds.ToDictionary();
@@ -62,6 +59,7 @@ public class SoundManager : MonoBehaviour
             OnOffBgmAudio(BgmSounds.Main, false);
         }
     }
+
 
     public void ChangeBgmVolume(float v)
     {
