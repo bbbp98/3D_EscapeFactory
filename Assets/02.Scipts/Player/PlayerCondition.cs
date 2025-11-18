@@ -57,14 +57,7 @@ public class PlayerCondition : MonoBehaviour
         animationHandler.DieAnimation();
         yield return new WaitForSeconds(1f);
         playerController.enabled = false;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("충돌 감지됨"+other.name);
-        if (other.CompareTag("Object"))
-        {
-            Debug.Log("object 태그 맞음");
-            Damaged();
-        }   
+
+        GameManager.Instance.GameOver();
     }
 }

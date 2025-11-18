@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<CapsuleCollider>();
         targetPosition = transform.position;
         animationHandler = GetComponent<AnimationHandler>();
-        if(animationHandler == null)
+        if (animationHandler == null)
         {
             Debug.LogError("animatiorHandler is null");
         }
@@ -47,17 +47,24 @@ public class PlayerController : MonoBehaviour
     {
         float gravityMultiplier = IsGrounded() ? 1f : 2f;
         rb.AddForce(Vector3.down * customGravity * gravityMultiplier, ForceMode.Acceleration);
-     
+
     }
 
     void Update()
     {
+        if (GameManager.Instance.CurState != GameState.Playing)
+        {
+            animationHandler.anim.speed = 0f;
+            return;
+        }
+
+        animationHandler.anim.speed = 1f;
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
-        
-        Vector3 newPos = new Vector3(targetPosition.x,transform.position.y,nextZ);
+
+        Vector3 newPos = new Vector3(targetPosition.x, transform.position.y, nextZ);
         Vector3 direction = newPos - transform.position;
         float adjustedSpeed = moveSpeed;
-        if(Mathf.Abs(direction.x)>0.01f && Mathf.Abs(direction.z) > 0.01f)
+        if (Mathf.Abs(direction.x) > 0.01f && Mathf.Abs(direction.z) > 0.01f)
         {
             adjustedSpeed *= 0.7f;
         }
@@ -73,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed && currentLane > 0)
         {
             currentLane--;
-            targetPosition.x = (currentLane-2) * laneDistance;
+            targetPosition.x = (currentLane - 2) * laneDistance;
         }
     }
     public void OnMoveRight(InputAction.CallbackContext context)
@@ -81,12 +88,12 @@ public class PlayerController : MonoBehaviour
         if (context.performed && currentLane < 4)
         {
             currentLane++;
-            targetPosition.x = (currentLane-2) * laneDistance;
+            targetPosition.x = (currentLane - 2) * laneDistance;
         }
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.performed && IsGrounded() && !isSliding)
+        if (context.performed && IsGrounded() && !isSliding)
         {
             isJumping = true;
             animationHandler.JumpAnimation();
@@ -95,11 +102,13 @@ public class PlayerController : MonoBehaviour
     }
     public void OnSlide(InputAction.CallbackContext context)
     {
-        if (context.started && IsGrounded() && !isSliding&&!isJumping)
+        if (context.started && IsGrounded() && !isSliding && !isJumping)
         {
             isSliding = true;
             animationHandler.SlidingAnimation(true);
-        }else if(context.canceled && isSliding){
+        }
+        else if (context.canceled && isSliding)
+        {
             animationHandler.SlidingAnimation(false);
             isSliding = false;
         }
@@ -113,7 +122,7 @@ public class PlayerController : MonoBehaviour
             new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.01f),Vector3.down),
             new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.01f),Vector3.down),
         };
-        for(int i = 0; i < rays.Length; i++)
+        for (int i = 0; i < rays.Length; i++)
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
@@ -124,7 +133,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeSpeedTemporaily(float speed, float duration)
     {
-        StartCoroutine(ChangeSpeedCoroutine(speed,duration));
+        StartCoroutine(ChangeSpeedCoroutine(speed, duration));
     }
     private IEnumerator ChangeSpeedCoroutine(float multiplier, float duration)
     {

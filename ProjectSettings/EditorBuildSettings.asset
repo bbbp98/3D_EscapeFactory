@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/01.Scenes/ManagerScene.unity
+    guid: e9a58678c28f8d9409e6acd46c5796ef
+  - enabled: 1
     path: Assets/01.Scenes/TitleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -14,7 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/MainScene.unity
     guid: 3375c3281616dc9429fdaec70bb13a5d
-  - enabled: 1
-    path: Assets/01.Scenes/TestScene_Juwon.unity
-    guid: 3d0665eb6dc808f4aab3952339b4f9d6
   m_configObjects: {}

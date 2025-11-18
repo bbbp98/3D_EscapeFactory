@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // 버튼 OnClick 전용
@@ -102,18 +102,18 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if(panel.TryGetComponent<RectTransform>(out RectTransform rtrans))
+        if (panel.TryGetComponent<RectTransform>(out RectTransform rtrans))
         {
             Debug.Log("get rect transform");
-            while(t < popupTime)
+            while (t < popupTime)
             {
                 t += Time.fixedDeltaTime;
 
                 ratio = tf ? Mathf.Lerp(popupRatio, 1f, t / popupTime) : Mathf.Lerp(1f, popupRatio, t / popupTime);
-            
-                rtrans.localScale = new Vector3( ratio, ratio, 1);
+
+                rtrans.localScale = new Vector3(ratio, ratio, 1);
                 yield return new WaitForFixedUpdate();
-            }        
+            }
         }
 
         if (!tf)
@@ -122,4 +122,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void OnClickRestart()
+    {
+        GameManager.Instance.ReStartRoutine();
+    }
 }

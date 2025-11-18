@@ -36,7 +36,7 @@ public class PoolManager : MonoBehaviour
         }
 
         poolRoot = root.transform;
-        DontDestroyOnLoad(poolRoot.gameObject);
+        //DontDestroyOnLoad(poolRoot.gameObject);
     }
 
     private void Initialize()

@@ -27,7 +27,9 @@ public class _SceneManager : MonoBehaviour
 
     void Start()
     {
-        OpenScene(SceneType.UI);
+        //OpenScene(SceneType.UI);
+        OpenScene(SceneType.Game);
+        StartCoroutine(GameManager.Instance.CountDown());
     }
 
     void Update()

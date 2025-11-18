@@ -937,7 +937,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 183328982}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 565935513}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnClickRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &183328982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2906,6 +2918,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2022181096}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &667112141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3304,7 +3328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &813993748
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6053,7 +6077,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9999
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abb78e81975b9b243bb48679e0fbcce7, type: 2}
   m_sharedMaterial: {fileID: -256023403599321285, guid: abb78e81975b9b243bb48679e0fbcce7, type: 2}
@@ -7054,6 +7078,8 @@ MonoBehaviour:
     pairs:
     - key: 2
       value: {fileID: 102900000, guid: 9ff484860d2c401488887501ecb4a499, type: 3}
+    - key: 1
+      value: {fileID: 102900000, guid: 3375c3281616dc9429fdaec70bb13a5d, type: 3}
 --- !u!4 &2002067297
 Transform:
   m_ObjectHideFlags: 0
@@ -7235,7 +7261,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2036112115}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 565935513}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnClickRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2036112115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7357,6 +7395,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2022181096}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SettingInGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 565935513}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OpenUI
