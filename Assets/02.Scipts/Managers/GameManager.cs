@@ -70,12 +70,17 @@ public class GameManager : MonoBehaviour
     {
         InitGame();
     }
-    private void Update()
+   
+    public void TitleSceneChange()  
     {
-        if (Input.GetKeyUp(KeyCode.E)) StartGame();
-        if (Input.GetKeyUp(KeyCode.R)) GameOver();
-        if (Input.GetKeyUp(KeyCode.T)) SettingInGame();
+        //SceneManager.Loaded()
+        //타이틀을 어찌해야할고
     }
+    public void GameSceneChange()
+    {
+        //SceneManager.Loaded()
+    }
+
     //난이도 설정 메서드
     public void SetDifficulty(GameDifficulty difficulty)    
     {
@@ -100,7 +105,8 @@ public class GameManager : MonoBehaviour
         //초기 상태
         curState = GameState.Pause;
         
-        //UI, Sound 초기화
+        // 시작 Sound 넣기
+
         //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
@@ -111,13 +117,10 @@ public class GameManager : MonoBehaviour
     {
         if (curState != GameState.Pause && curState != GameState.CountDown) return;
 
-        //플레이어 위치 초기화
-        //player.transform.position = Vector3.zero;
 
         //게임 시작 상태로 바꾸기
         curState = GameState.Playing;
-        //UI적용
-        //UIManager.Instance.CallUIOnOff(PanelType.InGame, true);
+       
         //난이도에 따른 속도 적용
 
         Resume();
@@ -131,8 +134,9 @@ public class GameManager : MonoBehaviour
         if(curState != GameState.Playing) return;
 
         curState = GameState.GameOver;
-        //모든 사물들 정지
-        //Pause();
+
+        //Sound 넣기
+
         Debug.Log("게임 끝");
         //endPanel 띄우기
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, true);
@@ -146,24 +150,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountDown());
     }
 
-    //게임 재시작
-    //public IEnumerator ReStartRoutine()    //restart 버튼 누르면 실행
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작
-
-    //    yield return null;
-
-    //    player = FindObjectOfType<PlayerController>().gameObject;
-    //    InitGame();
-    //}
-
     //게임 멈추기
     public void SettingInGame()     //일시정지 버튼 누르면 실행
     {
         curState = GameState.Pause;
-        //Pause();
-        //settingPanel
-        //UIManager.Instance.CallUIOnOff(PanelType.Settings, true);
+        Pause();
+        
     }
     public void Pause()
     {

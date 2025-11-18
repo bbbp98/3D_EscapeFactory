@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
 using Unity.VisualScripting;
@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("PlayerMovement")]
-    public float moveSpeed = 15f; //∞»¥¬ º”µµ
+    public float moveSpeed = 15f; //Í±∑Îäî ÏÜçÎèÑ
     public float laneDistance = 2.73f;
 
     [Header("Jump")]
@@ -52,12 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CurState != GameState.Playing)
-        {
-            animationHandler.anim.speed = 0f;
-            return;
-        }
-
+        
         animationHandler.anim.speed = 1f;
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
 
