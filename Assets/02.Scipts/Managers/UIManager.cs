@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
         panelDic = panels.ToDictionary();
     }
 
+    // 버튼 OnClick 전용
     public void OpenUI(GameObject go)
     {
         // 패널 활성화
@@ -62,11 +63,18 @@ public class UIManager : MonoBehaviour
         //panelDic[pt].SetActive(true);
     }
 
+    // 버튼 OnClick 전용
     public void CloseUI(GameObject go)
     {
         // 패널 비활성화
         StartCoroutine(PopUI(go, false));
         //panelDic[pt].SetActive(false);
+    }
+
+    // 타 클래스에서 호출하는 용
+    public void CallUIOnOff(PanelType pt, bool tf)
+    {
+        StartCoroutine(PopUI(panelDic[pt], tf));
     }
 
     public void SetBgmVolume(float v)

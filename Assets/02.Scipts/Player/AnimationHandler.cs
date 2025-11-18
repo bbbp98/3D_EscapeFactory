@@ -6,8 +6,7 @@ public class AnimationHandler : MonoBehaviour
 {
     public Animator anim;
     private CapsuleCollider col;
-
-
+    public GameObject _gameObject;
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -20,12 +19,12 @@ public class AnimationHandler : MonoBehaviour
     {
         col = GetComponent<CapsuleCollider>();
         anim.SetBool("IsDie", false);
-
+        _gameObject.SetActive(false);
     }
     public void JumpAnimation()
     {
         anim.SetTrigger("Jump");
-        anim.SetBool("Landed", false);
+        LandedFalseToTrue();
     }
     public void NotJumpAnimation()
     {
@@ -47,11 +46,33 @@ public class AnimationHandler : MonoBehaviour
     }
     public void DieAnimation()
     {
-        anim.SetBool("IsDie", true);
+        _gameObject.SetActive(false);
+        ShowEffect();
+        anim.SetTrigger("IsDie");
     }
     public void DamagedAnimation()
     {
         anim.SetTrigger("Damaged");
+        ShowEffect();
     }
-
+    public void ShowEffect()
+    {
+        StartCoroutine(EffectdCoroutine());
+    }
+    private IEnumerator EffectdCoroutine()
+    {
+        _gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        _gameObject.SetActive(false);
+    }
+    public void LandedFalseToTrue()
+    {
+        StartCoroutine(LandedCoroutine());
+    }
+    private IEnumerator LandedCoroutine()
+    {
+        anim.SetBool("Landed", false);
+        yield return new WaitForSeconds(0.9f);
+        anim.SetBool("Landed", true);
+    }
 }
