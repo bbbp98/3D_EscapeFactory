@@ -21,9 +21,10 @@ public class Tile : MonoBehaviour, IPoolObject
     /// </summary>
     public TileLane[] lanes = new TileLane[5];
 
+    /// <summary>
+    /// 동적 생성되는 오브젝트의 parent위치
+    /// </summary>
     [SerializeField] public Transform dynamicRoot;
-
-    public string prefabKey;
 
     public string Key { get; set; }
 

@@ -22,6 +22,9 @@ public class PoolManager : MonoBehaviour
         Initialize();
     }
 
+    /// <summary>
+    /// pool에 생성된 GameObject 정리용 Root 생성
+    /// </summary>
     private void CreatePoolRoot()
     {
         GameObject root = GameObject.Find("[PoolRoot]");
@@ -56,6 +59,10 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// pool에서 GameObject 가져오기
+    /// </summary>
+    /// <param name="key">Prefab.name</param>
     public GameObject Get(string key)
     {
         if (!poolDict.ContainsKey(key))
@@ -87,6 +94,10 @@ public class PoolManager : MonoBehaviour
         return go;
     }
 
+    /// <summary>
+    /// pool에 GameObject 반납
+    /// </summary>
+    /// <param name="go">반납할 GameObject</param>
     public void Release(GameObject go)
     {
         if (!go.TryGetComponent<IPoolObject>(out var poolObj))

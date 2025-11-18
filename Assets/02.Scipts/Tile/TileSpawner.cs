@@ -20,8 +20,6 @@ public class TileSpawner : MonoBehaviour
     private Queue<Tile> activeTiles = new Queue<Tile>();
     private bool[] laneBlocked = new bool[5];
 
-    private Transform tileRoot;
-
     private void Start()
     {
         Restart();
@@ -37,19 +35,10 @@ public class TileSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 랜덤한 타일을 생성합니다.
+    /// 랜덤한 타일 생성
     /// </summary>
     private void SpawnTile()
     {
-        //Tile prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
-        //Tile tile = Instantiate(prefab, Vector3.forward * spawnZ, Quaternion.identity);
-
-        //spawnZ += tileLength;
-
-        //activeTiles.Enqueue(tile);
-        //trackBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
-        //itemSpawner.SpawnStarsInTile(tile, trackBlocked);
-
         Tile prefab = tilePrefabs[Random.Range(0, tilePrefabs.Length)];
 
         Tile tile = PoolManager.Instance.Get(prefab.name).GetComponent<Tile>();
@@ -63,10 +52,11 @@ public class TileSpawner : MonoBehaviour
         itemSpawner.SpawnStarsInTile(tile, laneBlocked);
     }
 
+    /// <summary>
+    /// 타일 비활성화
+    /// </summary>
     private void DisableTile()
     {
-        //Destroy(activeTiles.Dequeue().gameObject);
-
         Tile oldTile = activeTiles.Dequeue();
         PoolManager.Instance.Release(oldTile.gameObject);
     }
