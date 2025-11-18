@@ -7,9 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("PlayerMovement")]
-    public float moveSpeed = 10f; //걷는 속도
+    public float moveSpeed = 15f; //걷는 속도
     public float laneDistance = 2.73f;
-    public float smoothSpeed = 10f; //대각선 이동
 
     [Header("Jump")]
     public float jumpPower = 20;
@@ -56,12 +55,17 @@ public class PlayerController : MonoBehaviour
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
         
         Vector3 newPos = new Vector3(targetPosition.x,transform.position.y,nextZ);
-        transform.position = Vector3.MoveTowards(transform.position, newPos, smoothSpeed * Time.deltaTime);
+        Vector3 direction = newPos - transform.position;
+        float adjustedSpeed = moveSpeed;
+        if(Mathf.Abs(direction.x)>0.01f && Mathf.Abs(direction.z) > 0.01f)
+        {
+            adjustedSpeed *= 0.7f;
+        }
+        transform.position = Vector3.MoveTowards(transform.position, newPos, adjustedSpeed * Time.deltaTime);
         if (isJumping && IsGrounded())
         {
             isJumping = false;
-            animationHandler.NotJumpAnimation();
-
+            //animationHandler.NotJumpAnimation();
         }
     }
     public void OnMoveLeft(InputAction.CallbackContext context)
@@ -91,7 +95,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnSlide(InputAction.CallbackContext context)
     {
-        if (context.started && IsGrounded() && !isSliding)
+        if (context.started && IsGrounded() && !isSliding&&!isJumping)
         {
             isSliding = true;
             animationHandler.SlidingAnimation(true);
