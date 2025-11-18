@@ -24,11 +24,13 @@ public class PlayerCondition : MonoBehaviour
     }
     public void InstantDeath() //ม๏ป็
     {
+        if (health <= 0) return;
         health = 0;
         Die();
     }
     public void Damaged()
     {
+        if (health <= 0) return;
         health -= 1;
         if (health <= 0)
         {
