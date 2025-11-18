@@ -72,7 +72,8 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.E)) StartGame();
-        if(Input.GetKeyUp(KeyCode.R)) GameOver();
+        if (Input.GetKeyUp(KeyCode.R)) GameOver();
+        if (Input.GetKeyUp(KeyCode.T)) SettingInGame();
     }
     //난이도 설정 메서드
     public void SetDifficulty(GameDifficulty difficulty)    
@@ -95,13 +96,14 @@ public class GameManager : MonoBehaviour
     //게임 설정 초기화
     public void InitGame()
     {
-        //카운트 다운 초기화
-
-        //카운트다운 상태
-        curState = GameState.CountDown;
+        //초기 상태
+        curState = GameState.Pause;
         //플레이어 위치 초기화
         player.transform.position = Vector3.zero;
-        //맵 생성 초기화
+        //UI, Sound 초기화
+        //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
+        //UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
+        //UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
     }
 
     //게임 플레이 시작
@@ -112,6 +114,8 @@ public class GameManager : MonoBehaviour
        
         //게임 시작 상태로 바꾸기
         curState = GameState.Playing;
+        //UI적용
+        UIManager.Instance.CallUIOnOff(PanelType.InGame, true);
         //난이도에 따른 속도 적용
 
         Resume();
@@ -124,11 +128,12 @@ public class GameManager : MonoBehaviour
     {
         if(curState != GameState.Playing) return;
 
-        curState = GameState.Pause;
+        curState = GameState.GameOver;
         //모든 사물들 정지
         Pause();
         Debug.Log("게임 끝");
         //endPanel 띄우기
+        //UIManager.Instance.CallUIOnOff(PanelType.GameOver, true);
 
     }
 
@@ -148,6 +153,7 @@ public class GameManager : MonoBehaviour
     {
         Pause();
         //settingPanel
+        //UIManager.Instance.CallUIOnOff(PanelType.Settings, true);
     }
     public void Pause()
     {
