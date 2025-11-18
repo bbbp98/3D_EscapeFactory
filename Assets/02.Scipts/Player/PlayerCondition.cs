@@ -9,11 +9,13 @@ public class PlayerCondition : MonoBehaviour
     public PlayerController playerController;
     public AnimationHandler animationHandler;
     public GameObject monster;
+    public Animator monsterAnimator;
     void Start()
     {
         health = 2;
         playerController = GetComponent<PlayerController>();
         animationHandler = GetComponent<AnimationHandler>();
+        monsterAnimator = monster.GetComponent<Animator>();
     }
 
     public void Slow(float multiplier = 2f, float duration = 3f) //속도 줄이기(배율, 지속시간)
@@ -34,7 +36,7 @@ public class PlayerCondition : MonoBehaviour
             return;
         }
         animationHandler.DamagedAnimation();
-        StartCoroutine(MoveMonsterForward(new Vector3(0, 0, -5f), 1.5f));//몬스터 서서히 이동
+        StartCoroutine(MoveMonsterForward(new Vector3(0, 0, -5.5f), 1.5f));//몬스터 서서히 이동
     }
     private IEnumerator MoveMonsterForward(Vector3 targetLocalPos, float duration)
     {
@@ -50,14 +52,27 @@ public class PlayerCondition : MonoBehaviour
     }
     public void Die()
     {
-        StartCoroutine(DieCoroutine());
+        StartCoroutine(DieCoroutine(new Vector3(1.46f,0,-2.32f),1.5f));
     }
-    private IEnumerator DieCoroutine()
+    private IEnumerator DieCoroutine(Vector3 targetLocalPos, float duration)
     {
         animationHandler.DieAnimation();
-        yield return new WaitForSeconds(1f);
+        Vector3 startPos = monster.transform.localPosition;
+        Quaternion startRot = monster.transform.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0f, -28f, 0f);
+        float _elapsed = 0f;
+        while (_elapsed < duration)
+        {
+            _elapsed += Time.deltaTime;
+            float t = _elapsed / duration;
+            monster.transform.localPosition = Vector3.Lerp(startPos, targetLocalPos, t);
+            monster.transform.localRotation = Quaternion.Lerp(startRot, targetRot, t);
+            yield return null;
+        }
+        monsterAnimator.SetTrigger("Smash");
+        yield return new WaitForSeconds(0.4f);
         playerController.enabled = false;
-
+        yield return new WaitForSeconds(3f);
         GameManager.Instance.GameOver();
     }
 }
