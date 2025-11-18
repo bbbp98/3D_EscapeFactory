@@ -4,19 +4,15 @@ public class BackCamera : MonoBehaviour
 {
     public Transform target;                        //타겟
 
-    public float distance = 4f;                     //뒤쪽으로 떨어질 거리
-    public float height = 3f;                       //카메라 위치
+    public float distance = 2f;                     //뒤쪽으로 떨어질 거리
+    public float height = 1.5f;                       //카메라 위치
     public float followSpeed = 8f;                  //카메라 속도
 
     public float speedThreshold = 5f;               //이 속도 이하라면 카메라 켜짐
     public float playerSpeed = 0f;                  //플레이어 속도
 
-    private Camera cam;
+    public GameObject mirrorUI;
 
-    private void Awake()
-    {
-        cam = GetComponent<Camera>();
-    }
 
     private void LateUpdate()
     {
@@ -24,7 +20,7 @@ public class BackCamera : MonoBehaviour
 
         FollowTarget();
         UpdateCameraRotation();
-        UpdateCameraVisibility();
+        UpdateMirrorUI();
     }
 
     private void FollowTarget()
@@ -46,9 +42,10 @@ public class BackCamera : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(-target.forward, Vector3.up);
     }
 
-    private void UpdateCameraVisibility()
+    private void UpdateMirrorUI()
     {
-        cam.enabled = playerSpeed < speedThreshold;
+        // 속도가 느리면 UI 보이기
+        mirrorUI.SetActive(playerSpeed < speedThreshold);
     }
 
     // 외부에서 플레이어 속도 세팅
