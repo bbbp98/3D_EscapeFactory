@@ -80,14 +80,23 @@ public class PlayerCondition : MonoBehaviour
         yield return new WaitForSeconds(3f);
         GameManager.Instance.GameOver();
     }
-    public void Shield(float duration = 3f)
+    public void ShieldAndBoost(float multiplier = 2f, float duration = 3f) //무적부스트
     {
-        StartCoroutine(ShieldCoroutine(duration));
+        StartCoroutine(ShieldCoroutine(multiplier, duration));
     }
-    private IEnumerator ShieldCoroutine(float duration)
+    private IEnumerator ShieldCoroutine(float multiplier ,float duration)
     {
+        float originalSpeed = playerController.moveSpeed;
+        playerController.moveSpeed *= multiplier;
         invincible = true;
         yield return new WaitForSeconds(duration);
         invincible = false;
+        playerController.moveSpeed = originalSpeed;
+    }
+    public void Heal()
+    {
+        if (health <= 0 || health == 2) return;
+        health = 2;
+        //몬스터 다시 뒤로 가기
     }
 }
