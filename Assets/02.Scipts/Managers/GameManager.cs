@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     public GameState CurState => curState;
 
     private static GameManager _instance;
-
-    public bool isPaused { get; private set; }
     public static GameManager Instance
     {
         get // 재시작 시 게임 매니저를 참조한 다른 스크립트에서 찾을려고 할 때 null뜰 수 있음
@@ -70,12 +68,7 @@ public class GameManager : MonoBehaviour
     {
         InitGame();
     }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.E)) StartGame();
-        if (Input.GetKeyUp(KeyCode.R)) GameOver();
-        if (Input.GetKeyUp(KeyCode.T)) SettingInGame();
-    }
+   
     //난이도 설정 메서드
     public void SetDifficulty(GameDifficulty difficulty)    
     {
@@ -100,7 +93,8 @@ public class GameManager : MonoBehaviour
         //초기 상태
         curState = GameState.Pause;
         
-        //UI, Sound 초기화
+        // 시작 Sound 넣기
+
         //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
@@ -111,13 +105,10 @@ public class GameManager : MonoBehaviour
     {
         if (curState != GameState.Pause && curState != GameState.CountDown) return;
 
-        //플레이어 위치 초기화
-        //player.transform.position = Vector3.zero;
 
         //게임 시작 상태로 바꾸기
         curState = GameState.Playing;
-        //UI적용
-        //UIManager.Instance.CallUIOnOff(PanelType.InGame, true);
+       
         //난이도에 따른 속도 적용
 
         Resume();
@@ -131,8 +122,9 @@ public class GameManager : MonoBehaviour
         if(curState != GameState.Playing) return;
 
         curState = GameState.GameOver;
-        //모든 사물들 정지
-        //Pause();
+
+        //Sound 넣기
+
         Debug.Log("게임 끝");
         //endPanel 띄우기
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, true);
@@ -146,37 +138,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountDown());
     }
 
-    //게임 재시작
-    //public IEnumerator ReStartRoutine()    //restart 버튼 누르면 실행
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작
-
-    //    yield return null;
-
-    //    player = FindObjectOfType<PlayerController>().gameObject;
-    //    InitGame();
-    //}
-
     //게임 멈추기
     public void SettingInGame()     //일시정지 버튼 누르면 실행
     {
         curState = GameState.Pause;
-        //Pause();
-        //settingPanel
-        //UIManager.Instance.CallUIOnOff(PanelType.Settings, true);
+        Pause();
+        
     }
     public void Pause()
     {
-        if(isPaused) return;
-        isPaused = true;
         Time.timeScale = 0f;
         if (curState == GameState.Playing)
             curState = GameState.Pause;
     }
     public void Resume()
     {
-        //if(!isPaused) return;
-        //isPaused = false;
         Time.timeScale = 1f;
         Debug.Log(curState);
         if(curState == GameState.Pause) 
@@ -187,17 +163,17 @@ public class GameManager : MonoBehaviour
     public IEnumerator CountDown()
     {
         curState = GameState.CountDown;
-
+        Pause();
         int count = 3;
 
         while (count > 0)
         {
             Debug.Log(count);   //여기에 UI, SOUND 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
             count--;
         }
         Debug.Log("시작");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         StartGame();
     }
 }
