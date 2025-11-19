@@ -22,6 +22,14 @@ public class ScoreManager : MonoBehaviour
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetBestScore();
+        }
+    }
+
     public void AddScore(int num)
     {
         curScore += num;
@@ -35,6 +43,8 @@ public class ScoreManager : MonoBehaviour
         {
             bestScore = curScore;
             PlayerPrefs.SetInt("BestScore", curScore);
+
+            AchievementManager.Instance.AdjustProgress("score", curScore);
         }
     }
 
@@ -51,6 +61,11 @@ public class ScoreManager : MonoBehaviour
     public void ResetCurScore()
     {
         curScore = 0;
+    }
+
+    private void ResetBestScore()
+    {
+       PlayerPrefs.SetInt("BestScore", 0); 
     }
 
 }
