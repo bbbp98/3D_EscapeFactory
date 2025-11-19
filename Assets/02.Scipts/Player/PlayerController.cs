@@ -56,23 +56,16 @@ public class PlayerController : MonoBehaviour
         animationHandler.anim.speed = 1f;
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
 
-        Vector3 newPos = new Vector3(targetPosition.x, transform.position.y, nextZ);
-        Vector3 direction = newPos - transform.position;
-        float adjustedSpeed = moveSpeed;
-        if (Mathf.Abs(direction.x) > 0.01f && Mathf.Abs(direction.z) > 0.01f)
-        {
-            adjustedSpeed *= 0.7f;
-        }
-        transform.position = Vector3.MoveTowards(transform.position, newPos, adjustedSpeed * Time.deltaTime);
+        float nextX = Mathf.MoveTowards(transform.position.x, targetPosition.x, moveSpeed * Time.deltaTime);
+        transform.position = new Vector3(nextX, transform.position.y, nextZ);
         if (isJumping && IsGrounded())
         {
             isJumping = false;
-            //animationHandler.NotJumpAnimation();
         }
     }
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
-        if (context.performed && currentLane > 0)
+        if (context.performed && currentLane > 0&& GameManager.Instance.CurState==GameState.Playing)
         {
             currentLane--;
             targetPosition.x = (currentLane - 2) * laneDistance;
@@ -80,7 +73,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMoveRight(InputAction.CallbackContext context)
     {
-        if (context.performed && currentLane < 4)
+        if (context.performed && currentLane < 4 && GameManager.Instance.CurState == GameState.Playing)
         {
             currentLane++;
             targetPosition.x = (currentLane - 2) * laneDistance;
@@ -88,7 +81,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded() && !isSliding)
+        if (context.performed && IsGrounded() && !isSliding && GameManager.Instance.CurState == GameState.Playing)
         {
             isJumping = true;
             animationHandler.JumpAnimation();
@@ -97,6 +90,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnSlide(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.CurState != GameState.Playing) return;
         if (context.started && IsGrounded() && !isSliding && !isJumping)
         {
             isSliding = true;
