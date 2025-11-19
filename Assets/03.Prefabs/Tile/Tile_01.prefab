@@ -1033,10 +1033,6 @@ MonoBehaviour:
     - {fileID: 9038295915817794660}
     itemPoints:
     - {fileID: 3959665113530561452}
-    - {fileID: 2768871157976799979}
-    - {fileID: 3026467359618945768}
-    - {fileID: 3512440728882843542}
-    - {fileID: 6143305321125630226}
   - obstaclePoints:
     - {fileID: 1662411936998225091}
     starPoints:
@@ -1050,7 +1046,8 @@ MonoBehaviour:
     - {fileID: 4765136112421469600}
     - {fileID: 66371982975174711}
     - {fileID: 4077362015795282867}
-    itemPoints: []
+    itemPoints:
+    - {fileID: 2768871157976799979}
   - obstaclePoints:
     - {fileID: 8086590444391686061}
     starPoints:
@@ -1064,7 +1061,8 @@ MonoBehaviour:
     - {fileID: 8248726300586021072}
     - {fileID: 5948117567983068024}
     - {fileID: 749913022831993917}
-    itemPoints: []
+    itemPoints:
+    - {fileID: 3026467359618945768}
   - obstaclePoints:
     - {fileID: 4817229350624145625}
     - {fileID: 2400106180560831432}
@@ -1079,7 +1077,8 @@ MonoBehaviour:
     - {fileID: 9072839902945457141}
     - {fileID: 6068072371096816835}
     - {fileID: 2000592902964768650}
-    itemPoints: []
+    itemPoints:
+    - {fileID: 3512440728882843542}
   - obstaclePoints:
     - {fileID: 613617699554051725}
     starPoints:
@@ -1093,7 +1092,8 @@ MonoBehaviour:
     - {fileID: 6043728703441220872}
     - {fileID: 3224837415656773230}
     - {fileID: 2608417770506152938}
-    itemPoints: []
+    itemPoints:
+    - {fileID: 6143305321125630226}
   dynamicRoot: {fileID: 6556334973291155449}
 --- !u!1 &1395048810549418755
 GameObject:
