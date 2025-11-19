@@ -11,6 +11,8 @@ public class BackCamera : MonoBehaviour
     public float speedThreshold = 8f;               //이 속도 이하라면 카메라 켜짐
     public float playerSpeed;                //플레이어 속도
 
+    public float playerHealth;
+
     public GameObject mirrorUI;
 
     private Vector3 lastPos;
@@ -23,6 +25,12 @@ public class BackCamera : MonoBehaviour
     private void LateUpdate()
     {
         if (target == null) return;
+
+        if (playerHealth <= 0)
+        {
+            mirrorUI.SetActive(false);
+            return;
+        }
 
         UpdatePlayerSpeed();
         FollowTarget();
