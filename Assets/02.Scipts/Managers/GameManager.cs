@@ -69,16 +69,6 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
    
-    public void TitleSceneChange()  
-    {
-        //SceneManager.Loaded()
-        //타이틀을 어찌해야할고
-    }
-    public void GameSceneChange()
-    {
-        //SceneManager.Loaded()
-    }
-
     //난이도 설정 메서드
     public void SetDifficulty(GameDifficulty difficulty)    
     {
@@ -173,17 +163,17 @@ public class GameManager : MonoBehaviour
     public IEnumerator CountDown()
     {
         curState = GameState.CountDown;
-
+        Pause();
         int count = 3;
 
         while (count > 0)
         {
             Debug.Log(count);   //여기에 UI, SOUND 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
             count--;
         }
         Debug.Log("시작");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         StartGame();
     }
 }
