@@ -13,4 +13,5 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public string itemName;
     public int value;
+    public float buffDuration;
 }

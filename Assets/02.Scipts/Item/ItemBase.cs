@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemBase : MonoBehaviour, IPoolObject
@@ -11,14 +9,17 @@ public class ItemBase : MonoBehaviour, IPoolObject
     public string Key { get; set; }
 
     [Header("Magnet")]
-    private bool isMagnet = false;
-    [SerializeField] private float maxDistance;
-    [SerializeField] private float magnetSpeed = 15f;
+    private float maxDistance = 20f;
+    private float magnetSpeed = 20f;
+    private bool isAttracted = false;
+
+    public static Transform magnetTarget;
+    public static bool magnetEnabled = false;
 
     private void Update()
     {
-        TryMagnet();
         Rotate();
+        MagnetMove();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,17 +36,17 @@ public class ItemBase : MonoBehaviour, IPoolObject
     /// </summary>
     protected virtual void OnGetEffect(PlayerCondition player) { }
 
-    #region Pool Method
+    #region Pool Method Initialize
     public void OnSpawnFromPool()
     {
         transform.rotation = Quaternion.identity;
-        isMagnet = false;
+        isAttracted = false;
     }
 
     public void OnReturnToPool()
     {
         transform.rotation = Quaternion.identity;
-        isMagnet = false;
+        isAttracted = false;
     }
     #endregion
 
@@ -54,16 +55,30 @@ public class ItemBase : MonoBehaviour, IPoolObject
         transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
     }
 
-    private void TryMagnet()
+    #region Magnet
+    public static void SetMagnetTarget(Transform target)
     {
-        // player의 마그넷 체크
-
-        Transform target = null;   // player위치 필요
-        if (target == null) return;
-
-        float distance = Vector3.Distance(transform.position, target.position);
-        if (distance > maxDistance) return;
-
-        transform.position = Vector3.MoveTowards(transform.position, target.position, magnetSpeed * Time.deltaTime);
+        magnetTarget = target;
+        magnetEnabled = true;
     }
+
+    public static void ClearMagnetTarget()
+    {
+        //magnetTarget = null;
+        magnetEnabled = false;
+    }
+
+    private void MagnetMove()
+    {
+        if (magnetTarget == null) return;
+
+        float distance = Vector3.Distance(transform.position, magnetTarget.position + (Vector3.up * 2));
+
+        if (!isAttracted && magnetEnabled && distance <= maxDistance)
+            isAttracted = true;
+
+        if (isAttracted)
+            transform.position = Vector3.MoveTowards(transform.position, magnetTarget.position + (Vector3.up * 2), magnetSpeed * Time.deltaTime);
+    }
+    #endregion
 }

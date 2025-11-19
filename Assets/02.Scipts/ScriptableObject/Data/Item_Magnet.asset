@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37041a563448dee4484fb8196046ed3d, type: 3}
   m_Name: Item_Magnet
   m_EditorClassIdentifier: 
-  type: 0
-  itemName: 
+  type: 1
+  itemName: "\uC790\uC11D"
   value: 0
+  buffDuration: 10
