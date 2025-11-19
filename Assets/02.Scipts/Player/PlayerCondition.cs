@@ -129,7 +129,10 @@ public class PlayerCondition : MonoBehaviour
     }
     private IEnumerator MagnetCoroutine(float duration)
     {
+        //ItemBase.SetMagnetTarget(this.transform);
         yield return new WaitForSeconds(duration);
         magnetActive = false;
+        //ItemBase.ClearMagnetTarget();
     }
+
 }
