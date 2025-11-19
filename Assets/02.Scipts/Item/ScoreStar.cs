@@ -4,6 +4,5 @@ public class ScoreStar : ItemBase
     {
         // score up
         ScoreManager.Instance.AddScore(data.value);
-        //Debug.Log(ScoreManager.Instance.GetCurScore());
     }
 }

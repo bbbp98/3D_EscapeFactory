@@ -225,6 +225,7 @@ MonoBehaviour:
   speedThreshold: 8
   playerSpeed: 0
   mirrorUI: {fileID: 206881471}
+  playerCondition: {fileID: 919132149107543975}
 --- !u!1 &93346757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1772,7 @@ MonoBehaviour:
   animationHandler: {fileID: 0}
   monster: {fileID: 919132149096390393}
   monsterAnimator: {fileID: 0}
+  magnetActive: 0
 --- !u!1 &968887108727268737
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public enum ItemType
 {
     Score,
+    Buff,
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
@@ -12,4 +13,5 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public string itemName;
     public int value;
+    public float buffDuration;
 }

@@ -12,6 +12,10 @@ public class TileLane
     /// 별(점수 획득 아이템)이 설치될 위치
     /// </summary>
     public Transform[] starPoints;
+    /// <summary>
+    /// active item이 설치될 위치
+    /// </summary>
+    public Transform[] itemPoints;
 }
 
 public class Tile : MonoBehaviour, IPoolObject
@@ -61,6 +65,14 @@ public class Tile : MonoBehaviour, IPoolObject
                 if (t == null) continue;
 
                 Gizmos.color = Color.green;
+                Gizmos.DrawSphere(t.position, 0.3f);
+            }
+
+            foreach (Transform t in lane.itemPoints)
+            {
+                if (t == null) continue;
+
+                Gizmos.color = Color.blue;
                 Gizmos.DrawSphere(t.position, 0.3f);
             }
         }

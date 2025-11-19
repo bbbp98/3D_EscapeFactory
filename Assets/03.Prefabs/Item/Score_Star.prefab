@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: faa86209eb19c0c4b827389789630c3b, type: 2}
   rotateSpeed: 100
+  maxDistance: 9999
+  magnetSpeed: 15
 --- !u!135 &573256601313396782
 SphereCollider:
   m_ObjectHideFlags: 0
