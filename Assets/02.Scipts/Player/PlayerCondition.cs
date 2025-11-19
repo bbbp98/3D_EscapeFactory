@@ -12,6 +12,7 @@ public class PlayerCondition : MonoBehaviour
     public Animator monsterAnimator;
     bool monsterForward;
     bool invincible; //무적효과
+    public bool magnetActive = false;//마그네틱
     void Start()
     {
         health = 2;
@@ -117,5 +118,18 @@ public class PlayerCondition : MonoBehaviour
             monster.transform.localPosition = Vector3.Lerp(startPos, targetLocalPos, t);
             yield return null;
         }
+    }
+    public void ActivateMagnet(float duration)
+    {
+        if (!magnetActive)
+        {
+            magnetActive = true;
+            StartCoroutine(MagnetCoroutine(duration));
+        }
+    }
+    private IEnumerator MagnetCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        magnetActive = false;
     }
 }
