@@ -10,9 +10,11 @@ public class PlayerCondition : MonoBehaviour
     public AnimationHandler animationHandler;
     public GameObject monster;
     public Animator monsterAnimator;
+    bool invincible; //무적효과
     void Start()
     {
         health = 2;
+        invincible = false;
         playerController = GetComponent<PlayerController>();
         animationHandler = GetComponent<AnimationHandler>();
         monsterAnimator = monster.GetComponent<Animator>();
@@ -20,17 +22,18 @@ public class PlayerCondition : MonoBehaviour
 
     public void Slow(float multiplier = 2f, float duration = 3f) //속도 줄이기(배율, 지속시간)
     {
+        if (invincible) return;
         playerController.ChangeSpeedTemporaily(multiplier, duration);
     }
     public void InstantDeath() //즉사
     {
-        if (health <= 0) return;
+        if (health <= 0||invincible) return;
         health = 0;
         Die();
     }
     public void Damaged()
     {
-        if (health <= 0) return;
+        if (health <= 0||invincible) return;
         health -= 1;
         if (health <= 0)
         {
@@ -76,5 +79,15 @@ public class PlayerCondition : MonoBehaviour
         playerController.enabled = false;
         yield return new WaitForSeconds(3f);
         GameManager.Instance.GameOver();
+    }
+    public void Shield(float duration = 3f)
+    {
+        StartCoroutine(ShieldCoroutine(duration));
+    }
+    private IEnumerator ShieldCoroutine(float duration)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(duration);
+        invincible = false;
     }
 }
