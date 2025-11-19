@@ -73,7 +73,7 @@ public class PoolManager : MonoBehaviour
 
         PoolData p = poolDict[key];
         GameObject go;
-        
+
         if (p.pool.Count > 0)
         {
             go = p.pool.Dequeue();
@@ -87,7 +87,7 @@ public class PoolManager : MonoBehaviour
         }
 
         go.SetActive(true);
-
+        
         if (go.TryGetComponent<IPoolObject>(out var poolObject))
             poolObject.OnSpawnFromPool();
 
@@ -108,7 +108,7 @@ public class PoolManager : MonoBehaviour
 
         string key = poolObj.Key;
 
-        if (!poolDict.ContainsKey (key))
+        if (!poolDict.ContainsKey(key))
         {
             Destroy(go);
             return;

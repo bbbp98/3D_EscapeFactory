@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1954544285081532764}
   - component: {fileID: 7808396265543481813}
   - component: {fileID: 986958947756322332}
+  - component: {fileID: -1473506226869257591}
   m_Layer: 0
-  m_Name: Item_Shield
+  m_Name: Item_ShieldAndSpeedUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,3 +106,15 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: -0.0000019073486, y: 0.018711925, z: 0.083297536}
+--- !u!114 &-1473506226869257591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126180833890680442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707ad6f4f49806d47809917b3fb9de90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

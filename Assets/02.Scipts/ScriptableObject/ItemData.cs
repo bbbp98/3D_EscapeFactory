@@ -3,6 +3,7 @@ using UnityEngine;
 public enum ItemType
 {
     Score,
+    Buff,
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
