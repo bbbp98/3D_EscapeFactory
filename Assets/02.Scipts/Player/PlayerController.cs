@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour
         animationHandler.anim.speed = 1f;
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
 
-        Vector3 newPos = new Vector3(targetPosition.x, transform.position.y, nextZ);
-        transform.position = Vector3.MoveTowards(transform.position, newPos, moveSpeed * Time.deltaTime);
+        float nextX = Mathf.MoveTowards(transform.position.x, targetPosition.x, moveSpeed * Time.deltaTime);
+        transform.position = new Vector3(nextX, transform.position.y, nextZ);
         if (isJumping && IsGrounded())
         {
             isJumping = false;
