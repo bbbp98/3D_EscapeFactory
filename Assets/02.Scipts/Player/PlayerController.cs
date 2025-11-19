@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
-        if (context.performed && currentLane > 0)
+        if (context.performed && currentLane > 0&& GameManager.Instance.CurState==GameState.Playing)
         {
             currentLane--;
             targetPosition.x = (currentLane - 2) * laneDistance;
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMoveRight(InputAction.CallbackContext context)
     {
-        if (context.performed && currentLane < 4)
+        if (context.performed && currentLane < 4 && GameManager.Instance.CurState == GameState.Playing)
         {
             currentLane++;
             targetPosition.x = (currentLane - 2) * laneDistance;
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded() && !isSliding)
+        if (context.performed && IsGrounded() && !isSliding && GameManager.Instance.CurState == GameState.Playing)
         {
             isJumping = true;
             animationHandler.JumpAnimation();
@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnSlide(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.CurState != GameState.Playing) return;
         if (context.started && IsGrounded() && !isSliding && !isJumping)
         {
             isSliding = true;
