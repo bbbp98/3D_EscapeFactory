@@ -9,9 +9,10 @@ public class ItemBase : MonoBehaviour, IPoolObject
     public string Key { get; set; }
 
     [Header("Magnet")]
-    private float maxDistance = 20f;
-    private float magnetSpeed = 20f;
+    private float maxDistance = 10f;
+    private float magnetSpeed = 10f;
     private bool isAttracted = false;
+    private float curSpeed = 0f;
 
     public static Transform magnetTarget;
     public static bool magnetEnabled = false;
@@ -72,13 +73,23 @@ public class ItemBase : MonoBehaviour, IPoolObject
     {
         if (magnetTarget == null) return;
 
-        float distance = Vector3.Distance(transform.position, magnetTarget.position + (Vector3.up * 2));
+        Vector3 targetPosition = magnetTarget.position + Vector3.up;
+        float distance = Vector3.Distance(transform.position, targetPosition);
 
         if (!isAttracted && magnetEnabled && distance <= maxDistance)
             isAttracted = true;
 
-        if (isAttracted)
-            transform.position = Vector3.MoveTowards(transform.position, magnetTarget.position + (Vector3.up * 2), magnetSpeed * Time.deltaTime);
+        #region Item Move
+        if (!isAttracted) return;
+
+        float accel = 25f;
+        curSpeed = Mathf.Lerp(curSpeed, magnetSpeed, Time.deltaTime * accel);
+
+        float distanceFactor = Mathf.Clamp01(1f - (distance / maxDistance));
+
+        float boostedSpeed = curSpeed * (1f + distanceFactor);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, boostedSpeed * Time.deltaTime);
+        #endregion
     }
     #endregion
 }

@@ -6,6 +6,6 @@ public class ItemMagnet : ItemBase
     protected override void OnGetEffect(PlayerCondition player)
     {
         // active player's magnet
-        //player.ActivateMagnet(data.buffDuration);
+        player.ActivateMagnet(data.buffDuration);
     }
 }
