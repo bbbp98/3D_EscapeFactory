@@ -4428,7 +4428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: {fileID: 102900000, guid: e9a58678c28f8d9409e6acd46c5796ef, type: 3}
-  animator: {fileID: 1610107351}
 --- !u!4 &474693153
 Transform:
   m_ObjectHideFlags: 0
@@ -4455,7 +4454,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: cdd626003246a474c8c4e040535e18e7, type: 2}
   m_InitialState: 1
-  m_WrapMode: 2
+  m_WrapMode: 1
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
