@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [Header("StarPrefab")]
+    [Header("Star")]
     [SerializeField] private GameObject starPrefab;
+
+    [Header("Item")]
+    [Range(0f, 1f)]
+    [SerializeField] private float spawnRate = 0.1f;
+    [SerializeField] private GameObject[] itemPrefabs;
 
     /// <summary>
     /// 장애물이 없는 레인에 점수를 획득할 수 있는 별 아이템 생성
@@ -25,6 +30,28 @@ public class ItemSpawner : MonoBehaviour
 
                 Transform parent = Application.isPlaying ? tile.dynamicRoot : tile.transform;
                 go.transform.SetParent(parent);
+            }
+        }
+    }
+
+    public void SpawnItemsInTile(Tile tile, bool[] laneBlocked)
+    {
+        if (tile == null) return;
+
+        for (int lane = 0; lane < tile.lanes.Length; lane++)
+        {
+            if (laneBlocked[lane]) continue;
+
+            foreach(var point in tile.lanes[lane].itemPoints)
+            {
+                if (Random.value <  spawnRate)
+                {
+                    GameObject go = PoolManager.Instance.Get(itemPrefabs[Random.Range(0, itemPrefabs.Length)].name);
+                    go.transform.SetPositionAndRotation(point.position, point.rotation);
+
+                    Transform parent = Application.isPlaying ? tile.dynamicRoot : tile.transform;
+                    go.transform.SetParent(parent);
+                }
             }
         }
     }

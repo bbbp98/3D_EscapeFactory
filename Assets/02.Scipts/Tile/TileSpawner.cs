@@ -50,6 +50,7 @@ public class TileSpawner : MonoBehaviour
 
         laneBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
         itemSpawner.SpawnStarsInTile(tile, laneBlocked);
+        itemSpawner.SpawnItemsInTile(tile, laneBlocked);
     }
 
     /// <summary>
