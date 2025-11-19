@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,12 +112,12 @@ public class UIManager : MonoBehaviour
             Debug.Log("get rect transform");
             while (t < popupTime)
             {
-                t += Time.fixedDeltaTime;
+                t += Time.unscaledDeltaTime;
 
                 ratio = tf ? Mathf.Lerp(popupRatio, 1f, t / popupTime) : Mathf.Lerp(1f, popupRatio, t / popupTime);
 
                 rtrans.localScale = new Vector3(ratio, ratio, 1);
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
         }
 

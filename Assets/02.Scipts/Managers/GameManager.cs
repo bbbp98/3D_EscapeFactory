@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     public GameState CurState => curState;
 
     private static GameManager _instance;
-
-    public bool isPaused { get; private set; }
     public static GameManager Instance
     {
         get // 재시작 시 게임 매니저를 참조한 다른 스크립트에서 찾을려고 할 때 null뜰 수 있음
@@ -159,16 +157,12 @@ public class GameManager : MonoBehaviour
     }
     public void Pause()
     {
-        if(isPaused) return;
-        isPaused = true;
         Time.timeScale = 0f;
         if (curState == GameState.Playing)
             curState = GameState.Pause;
     }
     public void Resume()
     {
-        //if(!isPaused) return;
-        //isPaused = false;
         Time.timeScale = 1f;
         Debug.Log(curState);
         if(curState == GameState.Pause) 
