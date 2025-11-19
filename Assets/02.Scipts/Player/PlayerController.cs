@@ -57,17 +57,10 @@ public class PlayerController : MonoBehaviour
         float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
 
         Vector3 newPos = new Vector3(targetPosition.x, transform.position.y, nextZ);
-        Vector3 direction = newPos - transform.position;
-        float adjustedSpeed = moveSpeed;
-        if (Mathf.Abs(direction.x) > 0.01f && Mathf.Abs(direction.z) > 0.01f)
-        {
-            adjustedSpeed *= 0.7f;
-        }
-        transform.position = Vector3.MoveTowards(transform.position, newPos, adjustedSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, newPos, moveSpeed * Time.deltaTime);
         if (isJumping && IsGrounded())
         {
             isJumping = false;
-            //animationHandler.NotJumpAnimation();
         }
     }
     public void OnMoveLeft(InputAction.CallbackContext context)
