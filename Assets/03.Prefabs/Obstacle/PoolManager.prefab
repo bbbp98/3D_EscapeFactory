@@ -79,6 +79,12 @@ MonoBehaviour:
   - key: Item_Magnet
     prefab: {fileID: 6443673055686198515, guid: e32ee440ead496244b90b8b1fe9c0191, type: 3}
     poolSize: 10
+  - key: Item_Fuel
+    prefab: {fileID: 144431647412069193, guid: aac69a044349f894c872687c252e8104, type: 3}
+    poolSize: 10
+  - key: Item_ShieldAndSpeedUp
+    prefab: {fileID: 9126180833890680442, guid: 9bb07f966a33a864d82a1b1271cb87ed, type: 3}
+    poolSize: 10
 --- !u!1 &8240462918483679112
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,3 +175,5 @@ MonoBehaviour:
   spawnRate: 0.1
   itemPrefabs:
   - {fileID: 6443673055686198515, guid: e32ee440ead496244b90b8b1fe9c0191, type: 3}
+  - {fileID: 144431647412069193, guid: aac69a044349f894c872687c252e8104, type: 3}
+  - {fileID: 9126180833890680442, guid: 9bb07f966a33a864d82a1b1271cb87ed, type: 3}
