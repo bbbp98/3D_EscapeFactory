@@ -13,13 +13,6 @@ public enum GameState
     GameOver    //게임 끝
 }   
 
-
-public enum GameDifficulty
-{
-    Easy,   //0.8배속
-    Normal,     //1배속
-    Hard    //1.2배속
-}
 public enum PetType { None, BlueRobot, YellowRobot, Cat }
 
 public class GameManager : MonoBehaviour
