@@ -27,6 +27,7 @@ public class PlayerCondition : MonoBehaviour
 
     private Dictionary<BuffType, Coroutine> coroutineDict = new Dictionary<BuffType, Coroutine>();
 
+    [SerializeField] private Animator[] petAnimators;
     void Start()
     {
         health = 2;
@@ -37,6 +38,8 @@ public class PlayerCondition : MonoBehaviour
         monsterAnimator = monster.GetComponent<Animator>();
 
         originSpeed = playerController.moveSpeed;
+
+        petAnimators = GetComponentsInChildren<Animator>();
     }
 
     public void Slow(float multiplier = 2f, float duration = 3f) //속도 줄이기(배율, 지속시간)
@@ -64,6 +67,8 @@ public class PlayerCondition : MonoBehaviour
         animationHandler.DamagedAnimation();
         monsterForward = true;
         StartCoroutine(MoveMonsterForward(new Vector3(0, 0, -5.5f), 1.5f));//몬스터 서서히 이동
+
+        TriggerPetAnimtion("DoRotate");
     }
 
     private IEnumerator MoveMonsterForward(Vector3 targetLocalPos, float duration)
@@ -81,6 +86,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Die()
     {
+        TriggerPetAnimtion("Die");
         playerController.moveSpeed = 0f;
         StartCoroutine(DieCoroutine(new Vector3(1.46f, 0, -2.32f), 1.5f));
     }
@@ -176,6 +182,21 @@ public class PlayerCondition : MonoBehaviour
         yield return new WaitForSeconds(duration);
         magnetActive = false;
         ItemBase.ClearMagnetTarget();
+    }
+    private void TriggerPetAnimtion(string triggerName)
+    {
+        foreach(var anim in petAnimators)
+        {
+            if (anim != null)
+            {
+                Debug.Log($"Triggering {triggerName} on {anim.gameObject.name}");
+                anim.SetTrigger(triggerName);
+            }
+            else
+            {
+                Debug.LogWarning("Animator is null in petAnimators array!");
+            }
+        }
     }
     #endregion
 }
