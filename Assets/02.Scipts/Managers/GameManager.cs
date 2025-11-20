@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
     {
         curState = GameState.CountDown;
         Pause();
-        //UIManager.Instance.CallUIOnOff(PanelType.Countdown, true);
+        UIManager.Instance.CallUIOnOff(PanelType.Countdown, true);
     }
     
 
