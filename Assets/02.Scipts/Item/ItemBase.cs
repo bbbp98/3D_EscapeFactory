@@ -10,7 +10,7 @@ public class ItemBase : MonoBehaviour, IPoolObject
 
     [Header("Magnet")]
     private float maxDistance = 10f;
-    private float magnetSpeed = 10f;
+    float magnetSpeed = 40f;
     private bool isAttracted = false;
     private float curSpeed = 0f;
 
@@ -89,6 +89,9 @@ public class ItemBase : MonoBehaviour, IPoolObject
 
         float boostedSpeed = curSpeed * (1f + distanceFactor);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, boostedSpeed * Time.deltaTime);
+
+        if (transform.position.z < targetPosition.z - 1f)
+            transform.position = targetPosition;
         #endregion
     }
     #endregion
