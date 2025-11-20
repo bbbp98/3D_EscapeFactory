@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance
     {
-        get // 재시작 시 게임 매니저를 참조한 다른 스크립트에서 찾을려고 할 때 null뜰 수 있음
+        get 
         {
             if (_instance == null)
             {
@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
         // 누적속도 초기화
         runtimeSpeed = 1f;
 
-        //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
     }
@@ -92,8 +91,6 @@ public class GameManager : MonoBehaviour
 
         //게임 시작 상태로 바꾸기
         curState = GameState.Playing;
-       
-        //난이도에 따른 속도 적용
 
         Resume();
 
@@ -107,10 +104,8 @@ public class GameManager : MonoBehaviour
 
         curState = GameState.GameOver;
 
-        //Sound 넣기
-
         Debug.Log("게임 끝");
-        //endPanel 띄우기
+ 
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, true);
 
     }
