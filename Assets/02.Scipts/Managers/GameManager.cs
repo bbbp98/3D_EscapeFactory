@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,25 +13,13 @@ public enum GameState
     GameOver    //게임 끝
 }   
 
-public enum GameDifficulty
-{
-    Easy,   //0.8배속
-    Normal,     //1배속
-    Hard    //1.2배속
-}
-
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private GameObject player;
 
-    [Header("Difficulty Info")]     //난이도 현재 단계
-    [SerializeField] private GameDifficulty curDifficulty = GameDifficulty.Normal;
-    public GameDifficulty CurDifficulty => curDifficulty;
-
-    [Header("Difficulty Speed")]    //난이도 별 속도 
-    [SerializeField] private float difficultySpeed = 1f;
-    public float DifficultySpeed => difficultySpeed;
+    private float speedRate = 0.02f;
+    private float runtimeSpeed = 1f;
 
     [Header("State Info")]
     [SerializeField] private GameState curState;
@@ -68,23 +57,17 @@ public class GameManager : MonoBehaviour
     {
         InitGame();
     }
-   
-    //난이도 설정 메서드
-    public void SetDifficulty(GameDifficulty difficulty)    
+    private void Update()
     {
-        curDifficulty = difficulty;
-        switch (difficulty)
+        if(curState == GameState.Playing)
         {
-            case GameDifficulty.Easy:
-                difficultySpeed = 0.8f;
-                break;
-            case GameDifficulty.Normal:
-                difficultySpeed = 1f;
-                break;
-            case GameDifficulty.Hard:
-                difficultySpeed = 1.2f;
-                break;
+            runtimeSpeed += speedRate * Time.deltaTime;
         }
+    }
+    
+    public float TotalSpeedMultiplier()
+    {
+        return  runtimeSpeed;
     }
 
     //게임 설정 초기화
@@ -93,7 +76,8 @@ public class GameManager : MonoBehaviour
         //초기 상태
         curState = GameState.Pause;
         
-        // 시작 Sound 넣기
+        // 누적속도 초기화
+        runtimeSpeed = 1f;
 
         //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
