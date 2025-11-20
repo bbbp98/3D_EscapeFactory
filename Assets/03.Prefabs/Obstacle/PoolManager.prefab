@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51cec79d115944484f1bd07c75804a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 0.7
+  baseSpawnRate: 0.3
   obstaclePrefabs:
   - {fileID: 605236277191783507, guid: 531d5270bf2de544a882601a1ac58cc1, type: 3}
   - {fileID: 7732619241625229238, guid: 255862ef983f58f43885578edd349d24, type: 3}
