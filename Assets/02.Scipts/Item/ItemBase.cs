@@ -10,15 +10,17 @@ public class ItemBase : MonoBehaviour, IPoolObject
 
     [Header("Magnet")]
     private float maxDistance = 10f;
-    float magnetSpeed = 40f;
     private bool isAttracted = false;
     private float curSpeed = 0f;
 
-    public static Transform magnetTarget;
-    public static bool magnetEnabled = false;
+    private static float magnetSpeed = 40f;
+    private static Transform magnetTarget;
+    private static bool magnetEnabled = false;
 
     private void Update()
     {
+        if (GameManager.Instance.CurState != GameState.Playing) return;
+
         Rotate();
         MagnetMove();
     }
@@ -38,7 +40,7 @@ public class ItemBase : MonoBehaviour, IPoolObject
     }
 
     /// <summary>
-    /// �÷��̾ �������� ȹ������ ���� ȿ��
+    /// 아이템 효과
     /// </summary>
     protected virtual void OnGetEffect(PlayerCondition player) { }
 
@@ -62,9 +64,10 @@ public class ItemBase : MonoBehaviour, IPoolObject
     }
 
     #region Magnet
-    public static void SetMagnetTarget(Transform target)
+    public static void SetMagnetTarget(PlayerController player)
     {
-        magnetTarget = target;
+        magnetSpeed = player.moveSpeed * 1.3f;
+        magnetTarget = player.transform;
         magnetEnabled = true;
     }
 

@@ -4,7 +4,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [Header("Obstacle Settings")]
     [Range(0f, 1f)]
-    [SerializeField] private float spawnRate = 0.5f;
+    [SerializeField] private float baseSpawnRate = 0.3f;
 
     [Header("Obstacle Prefabs")]
     [SerializeField] private GameObject[] obstaclePrefabs;
@@ -28,7 +28,12 @@ public class ObstacleSpawner : MonoBehaviour
             {
                 if (point == null) continue;
 
-                if (Random.value < spawnRate)
+                float newSpawnRate = baseSpawnRate * GameManager.Instance.TotalSpeedMultiplier();
+                newSpawnRate = Mathf.Min(newSpawnRate, 0.9f);
+
+                Debug.Log(newSpawnRate);
+
+                if (Random.value < baseSpawnRate)
                 {
                     GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
                     GameObject go = PoolManager.Instance.Get(prefab.name);
