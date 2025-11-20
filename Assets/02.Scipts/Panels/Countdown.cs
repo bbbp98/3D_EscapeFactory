@@ -19,6 +19,11 @@ public class Countdown : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        IsRunning = true;
+    }
+
     public IEnumerator CountDown()
     {
         int count = 3;
