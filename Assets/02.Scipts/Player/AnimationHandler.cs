@@ -23,12 +23,9 @@ public class AnimationHandler : MonoBehaviour
     }
     public void JumpAnimation()
     {
-        anim.SetTrigger("Jump");
-        LandedFalseToTrue();
-    }
-    public void NotJumpAnimation()
-    {
-        anim.SetBool("Landed",true);
+        Debug.Log("Jump");
+        anim.Play("Jump_Full_Long", 0, 0f);
+        anim.SetBool("Landed", false);
     }
     public void SlidingAnimation(bool state)
     {
@@ -73,6 +70,11 @@ public class AnimationHandler : MonoBehaviour
     {
         anim.SetBool("Landed", false);
         yield return new WaitForSeconds(0.9f);
+        anim.SetBool("Landed", true);
+    }
+    public void Landed()
+    {
+        Debug.Log("Landed");
         anim.SetBool("Landed", true);
     }
 }
