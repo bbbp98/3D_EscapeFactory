@@ -1926,6 +1926,10 @@ MonoBehaviour:
   monsterAnimator: {fileID: 0}
   magnetActive: 0
   shieldEffectPrefab: {fileID: 0}
+  petAnimators:
+  - {fileID: 3545270760967291349, guid: 157fe5ac82531e14182abf799c462b32, type: 3}
+  - {fileID: 8508441914620140347, guid: 64eea14a0564b2045bcb0e0009ebdff8, type: 3}
+  - {fileID: 8948447641463577858, guid: d7240d2246a98254db8e55cbb3187e28, type: 3}
 --- !u!1 &968887108727268737
 GameObject:
   m_ObjectHideFlags: 0
