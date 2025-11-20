@@ -19,6 +19,8 @@ public class TileSpawner : MonoBehaviour
 
     private Queue<Tile> activeTiles = new Queue<Tile>();
     private bool[] laneBlocked = new bool[5];
+    List<int> trueIndexes = new List<int>();
+
 
     private void Start()
     {
@@ -49,8 +51,9 @@ public class TileSpawner : MonoBehaviour
         activeTiles.Enqueue(tile);
 
         laneBlocked = obstacleSpawner.SpawnObstaclesInTile(tile);
-        itemSpawner.SpawnStarsInTile(tile, laneBlocked);
-        itemSpawner.SpawnItemsInTile(tile, laneBlocked);
+        int selectedIndex = SelectLane();
+        itemSpawner.SpawnStarsInTile(tile, selectedIndex);
+        itemSpawner.SpawnItemsInTile(tile, selectedIndex);
     }
 
     /// <summary>
@@ -60,6 +63,22 @@ public class TileSpawner : MonoBehaviour
     {
         Tile oldTile = activeTiles.Dequeue();
         PoolManager.Instance.Release(oldTile.gameObject);
+    }
+
+    private int SelectLane()
+    {
+        trueIndexes.Clear();
+
+        for (int i = 0; i < laneBlocked.Length; i++)
+        {
+            if (!laneBlocked[i])
+                trueIndexes.Add(i);
+        }
+
+        if (trueIndexes.Count == 0)
+            return -1;
+
+        return trueIndexes[Random.Range(0, trueIndexes.Count)];
     }
 
     public void Restart()

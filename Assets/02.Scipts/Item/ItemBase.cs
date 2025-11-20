@@ -19,6 +19,8 @@ public class ItemBase : MonoBehaviour, IPoolObject
 
     private void Update()
     {
+        if (GameManager.Instance.CurState != GameState.Playing) return;
+
         Rotate();
         MagnetMove();
     }
@@ -38,7 +40,7 @@ public class ItemBase : MonoBehaviour, IPoolObject
     }
 
     /// <summary>
-    /// �÷��̾ �������� ȹ������ ���� ȿ��
+    /// 아이템 효과
     /// </summary>
     protected virtual void OnGetEffect(PlayerCondition player) { }
 
