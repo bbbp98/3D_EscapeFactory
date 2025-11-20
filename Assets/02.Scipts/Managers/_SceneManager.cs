@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SearchService;
@@ -39,7 +39,7 @@ public class _SceneManager : MonoBehaviour
         UIManager.Instance.QuickUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.QuickUIOnOff(PanelType.Settings, false);
         SceneManager.LoadScene(sceneDic[SceneType.Game].name);
-        StartCoroutine(GameManager.Instance.CountDown());
+        GameManager.Instance.UseCountdown();
     }
 
 
