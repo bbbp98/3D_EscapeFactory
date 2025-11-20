@@ -2073,6 +2073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   _gameObject: {fileID: 956977033}
+  _gameObject2: {fileID: 0}
 --- !u!114 &919132149107543975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2091,7 +2092,7 @@ MonoBehaviour:
   monster: {fileID: 919132149096390393}
   monsterAnimator: {fileID: 0}
   magnetActive: 0
-  shieldEffectPrefab: {fileID: 0}
+  shieldEffectPrefab: {fileID: 6442210510579717430, guid: 2ae134615cb16d64b96fb90267db92a8, type: 3}
   petAnimators:
   - {fileID: 3545270760967291349, guid: 157fe5ac82531e14182abf799c462b32, type: 3}
   - {fileID: 8508441914620140347, guid: 64eea14a0564b2045bcb0e0009ebdff8, type: 3}

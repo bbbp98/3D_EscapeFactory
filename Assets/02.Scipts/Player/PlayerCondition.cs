@@ -25,12 +25,14 @@ public class PlayerCondition : MonoBehaviour
     [SerializeField] private GameObject shieldEffectPrefab;
     private GameObject currentShield;
 
+    int skillCount = 0;
     private Dictionary<BuffType, Coroutine> coroutineDict = new Dictionary<BuffType, Coroutine>();
 
     [SerializeField] private Animator[] petAnimators;
     void Start()
     {
         health = 2;
+        skillCount = 1;
         invincible = false;
         monsterForward = false;
         playerController = GetComponent<PlayerController>();
@@ -47,9 +49,20 @@ public class PlayerCondition : MonoBehaviour
         if (invincible) return;
         playerController.ChangeSpeedTemporaily(multiplier, duration);
     }
-
+    private bool PetProtectsPlayer()
+    {
+        if (GameManager.Instance.equippedPet != PetType.None && skillCount > 0)
+        {
+            animationHandler.ShowPetEffect();
+            skillCount--;
+            TriggerPetAnimtion("DoRotate");
+            return true; // ∆Í¿Ã ¥ÎΩ≈ ∏¬æ∆¡‹
+        }
+        return false;
+    }
     public void InstantDeath() //¡ÔªÁ
     {
+        if (PetProtectsPlayer()) return;
         if (health <= 0 || invincible) return;
         health = 0;
         Die();
@@ -57,6 +70,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Damaged()
     {
+        if (PetProtectsPlayer()) return;
         if (health <= 0 || invincible) return;
         health -= 1;
         if (health <= 0)
@@ -183,20 +197,26 @@ public class PlayerCondition : MonoBehaviour
         magnetActive = false;
         ItemBase.ClearMagnetTarget();
     }
+    private bool HasParameter(Animator animator, string paramName)
+    {
+        foreach (var param in animator.parameters)
+        {
+            if (param.name == paramName) return true;
+        }
+        return false;
+    }
+
     private void TriggerPetAnimtion(string triggerName)
     {
-        foreach(var anim in petAnimators)
+        if (GameManager.Instance.equippedPet == PetType.None) return;
+
+        foreach (var anim in petAnimators)
         {
-            if (anim != null)
+            if (anim != null && HasParameter(anim, triggerName))
             {
-                Debug.Log($"Triggering {triggerName} on {anim.gameObject.name}");
                 anim.SetTrigger(triggerName);
-            }
-            else
-            {
-                Debug.LogWarning("Animator is null in petAnimators array!");
             }
         }
     }
-    #endregion
-}
+        #endregion
+ }

@@ -58,10 +58,9 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             petUnlocks[PetType.BlueRobot] = true;
-            petUnlocks[PetType.YellowRobot] = false;
+            petUnlocks[PetType.YellowRobot] = true;
             petUnlocks[PetType.Cat] = true;
-            equippedPet = PetType.BlueRobot;
-
+            equippedPet = PetType.Cat;
         }
         else
         {

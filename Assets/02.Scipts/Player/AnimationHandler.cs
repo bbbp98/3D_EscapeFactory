@@ -6,7 +6,8 @@ public class AnimationHandler : MonoBehaviour
 {
     public Animator anim;
     private CapsuleCollider col;
-    public GameObject _gameObject;
+    public GameObject _gameObject;//«√∑π¿ÃæÓ ≈∏∞› ¿Ã∆Â∆Æ
+    public GameObject _gameObject2;//∆Í ≈∏∞› ¿Ã∆Â∆Æ
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -20,10 +21,10 @@ public class AnimationHandler : MonoBehaviour
         col = GetComponent<CapsuleCollider>();
         anim.SetBool("IsDie", false);
         _gameObject.SetActive(false);
+        _gameObject2.SetActive(false);
     }
     public void JumpAnimation()
     {
-        Debug.Log("Jump");
         anim.Play("Jump_Full_Long", 0, 0f);
         anim.SetBool("Landed", false);
 
@@ -70,6 +71,16 @@ public class AnimationHandler : MonoBehaviour
         yield return new WaitForSeconds(2);
         _gameObject.SetActive(false);
     }
+    public void ShowPetEffect()
+    {
+        StartCoroutine(PetEffectCoroutine());
+    }
+    private IEnumerator PetEffectCoroutine()
+    {
+        _gameObject2.SetActive(true);
+        yield return new WaitForSeconds(2);
+        _gameObject2.SetActive(false);
+    }
     public void LandedFalseToTrue()
     {
         StartCoroutine(LandedCoroutine());
@@ -82,7 +93,6 @@ public class AnimationHandler : MonoBehaviour
     }
     public void Landed()
     {
-        Debug.Log("Landed");
         anim.SetBool("Landed", true);
     }
 }
