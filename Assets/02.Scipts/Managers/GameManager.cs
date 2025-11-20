@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             petUnlocks[PetType.BlueRobot] = true;
             petUnlocks[PetType.YellowRobot] = true;
             petUnlocks[PetType.Cat] = true;
-            equippedPet = PetType.Cat;
+            equippedPet = PetType.None;
         }
         else
         {
