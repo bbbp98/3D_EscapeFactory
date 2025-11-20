@@ -149,8 +149,7 @@ public class AchievementManager : MonoBehaviour
         }
 
         AchievementUIManager ui = FindObjectOfType<AchievementUIManager>();
-        if (ui != null)
-            ui.RefreshUI();
+        if (ui != null) ui.RefreshUI();
     }
 
     private IEnumerator Popup(Achievement achievement)

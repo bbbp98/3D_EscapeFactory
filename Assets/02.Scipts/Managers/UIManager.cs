@@ -68,6 +68,9 @@ public class UIManager : MonoBehaviour
         // 패널 활성화
         StartCoroutine(PopUI(go, true));
         //panelDic[pt].SetActive(true);
+
+        //Play Click Sound
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 
     // 버튼 OnClick 전용
@@ -76,6 +79,9 @@ public class UIManager : MonoBehaviour
         // 패널 비활성화
         StartCoroutine(PopUI(go, false));
         //panelDic[pt].SetActive(false);
+
+        //Play Click Sound
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 
     // 타 클래스에서 호출하는 용
@@ -132,5 +138,11 @@ public class UIManager : MonoBehaviour
         ScoreManager.Instance.ResetCurScore();
 
         GameManager.Instance.ReStartRoutine();    
+    }
+
+    public void PlayClickSound()
+    {
+        //Play Click Sound
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 }

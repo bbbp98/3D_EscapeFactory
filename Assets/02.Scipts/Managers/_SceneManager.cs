@@ -45,7 +45,7 @@ public class _SceneManager : MonoBehaviour
 
     public void OpenScene(SceneType st)
     {
-        SceneManager.LoadScene(sceneDic[st].name);
+        SceneManager.LoadScene(sceneDic[st].name);;
     }
 
     public void LoadTitle()

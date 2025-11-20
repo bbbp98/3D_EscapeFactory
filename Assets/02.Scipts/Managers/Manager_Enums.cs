@@ -8,7 +8,7 @@ public enum BgmSounds{Title, Main, Hidden}
 
 public enum UISounds{Open, Close}
 
-public enum ClickSounds{Click}
+public enum ClickSounds{Click, Jump, Slide, HorMove, GameOver}
 
 public enum SceneType {Title, Game, UI}
 
