@@ -545,6 +545,85 @@ MonoBehaviour:
   laneIndex: 0
   tiltAmount: 6
   tiltSpeed: 5
+--- !u!1 &264977288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 264977289}
+  m_Layer: 0
+  m_Name: AttachPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &264977289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264977288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.6, y: 2.26, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 543450653645739290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &481939042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481939044}
+  - component: {fileID: 481939043}
+  m_Layer: 0
+  m_Name: PetSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &481939043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481939042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cb9781f3fceb94fb28a46c06c1140c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueRobotPrefab: {fileID: 5755558471899780519, guid: 157fe5ac82531e14182abf799c462b32, type: 3}
+  yellowRobotPrefab: {fileID: 213035540138431381, guid: 64eea14a0564b2045bcb0e0009ebdff8, type: 3}
+  catPrefab: {fileID: 2510040334265643621, guid: d7240d2246a98254db8e55cbb3187e28, type: 3}
+  attachPoint: {fileID: 264977289}
+--- !u!4 &481939044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481939042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.22634287, y: -2.6579456, z: -2.3107052}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &660536092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1443,7 @@ Transform:
   - {fileID: 187403138}
   - {fileID: 660536093}
   - {fileID: 543450653624124483}
+  - {fileID: 264977289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593876739703411521
@@ -1548,6 +1628,7 @@ GameObject:
   - component: {fileID: 919132149107543973}
   - component: {fileID: 919132149107543974}
   - component: {fileID: 919132149107543975}
+  - component: {fileID: 919132149107543976}
   m_Layer: 0
   m_Name: Mannequin_Medium
   m_TagString: Player
@@ -1773,6 +1854,21 @@ MonoBehaviour:
   monster: {fileID: 919132149096390393}
   monsterAnimator: {fileID: 0}
   magnetActive: 0
+  shieldEffectPrefab: {fileID: 6442210510579717430, guid: 2ae134615cb16d64b96fb90267db92a8, type: 3}
+--- !u!114 &919132149107543976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149107543968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bde3483f267b2448123abef9e9cc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  petPref: {fileID: 5755558471899780519, guid: 157fe5ac82531e14182abf799c462b32, type: 3}
+  petInstance: {fileID: 0}
 --- !u!1 &968887108727268737
 GameObject:
   m_ObjectHideFlags: 0
@@ -4065,3 +4161,4 @@ SceneRoots:
   - {fileID: 1963970236}
   - {fileID: 1793726378}
   - {fileID: 93346761}
+  - {fileID: 481939044}

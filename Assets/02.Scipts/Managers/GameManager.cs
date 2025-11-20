@@ -18,7 +18,7 @@ public enum GameDifficulty
     Normal,     //1배속
     Hard    //1.2배속
 }
-
+public enum PetType { None, BlueRobot, YellowRobot, Cat}
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
