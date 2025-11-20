@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
     private bool isJumping = false;
     public float customGravity = 20f;
-
+    private float jumpStartTime;
     [Header("Slide")]
     public float slideDuration = 1f;
 
@@ -38,16 +38,19 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("animatiorHandler is null");
         }
-        if (IsGrounded())
-        {
-            animationHandler.NotJumpAnimation();
-        }
+        animationHandler.Landed();
     }
     void FixedUpdate()
     {
         float gravityMultiplier = IsGrounded() ? 1f : 2f;
+        bool isGrounded = IsGrounded();
+        Debug.Log($"{rb.velocity} {isGrounded}");
         rb.AddForce(Vector3.down * customGravity * gravityMultiplier, ForceMode.Acceleration);
-
+        if (isJumping && isGrounded&&rb.velocity.y<-0.01f&&Time.time-jumpStartTime>0.1f)
+        {
+            isJumping = false;
+            animationHandler.Landed();
+        }
     }
 
     void Update()
@@ -58,10 +61,6 @@ public class PlayerController : MonoBehaviour
 
         float nextX = Mathf.MoveTowards(transform.position.x, targetPosition.x, moveSpeed * Time.deltaTime);
         transform.position = new Vector3(nextX, transform.position.y, nextZ);
-        if (isJumping && IsGrounded())
-        {
-            isJumping = false;
-        }
     }
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
@@ -84,6 +83,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed && IsGrounded() && !isSliding && GameManager.Instance.CurState == GameState.Playing)
         {
             isJumping = true;
+            jumpStartTime = Time.time;
             animationHandler.JumpAnimation();
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
         };
         for (int i = 0; i < rays.Length; i++)
         {
+            Debug.DrawRay(rays[i].origin,rays[i].direction*0.1f,Color.red);
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 return true;
