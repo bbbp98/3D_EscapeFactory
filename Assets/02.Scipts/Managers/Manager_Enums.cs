@@ -12,7 +12,7 @@ public enum ClickSounds{Click, Jump, Slide, HorMove, GameOver, Score, Item}
 
 public enum SceneType {Title, Game, UI}
 
-public enum PanelType {InGame, Settings, GameOver, Countdown}
+public enum PanelType {InGame, Settings, GameOver, Countdown, Pet}
 
 public class Manager_Enums : MonoBehaviour
 {

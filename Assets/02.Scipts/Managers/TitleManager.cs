@@ -20,4 +20,9 @@ public class TitleManager : MonoBehaviour
         SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 
+    public void OpenPetUI()
+    {
+        UIManager.Instance.CallUIOnOff(PanelType.Pet, true);
+    }
+
 }
