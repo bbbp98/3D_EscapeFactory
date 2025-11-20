@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         
         animationHandler.anim.speed = 1f;
-        float nextZ = transform.position.z + moveSpeed * Time.deltaTime;
+        float nextZ = transform.position.z + moveSpeed * GameManager.Instance.TotalSpeedMultiplier() * Time.deltaTime;
 
         float nextX = Mathf.MoveTowards(transform.position.x, targetPosition.x, moveSpeed * Time.deltaTime);
         transform.position = new Vector3(nextX, transform.position.y, nextZ);
