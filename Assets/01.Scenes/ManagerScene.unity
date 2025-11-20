@@ -7489,6 +7489,10 @@ MonoBehaviour:
       value: {fileID: 8300000, guid: c53345bd22191054fa9deb2f767905de, type: 3}
     - key: 4
       value: {fileID: 8300000, guid: df63299e254fd404cb9c2aa7bc2a1170, type: 3}
+    - key: 5
+      value: {fileID: 8300000, guid: 3dc71a9bf764e2c428362a7822e642b2, type: 3}
+    - key: 6
+      value: {fileID: 8300000, guid: 762b5735dac67174386ec1b14776a24a, type: 3}
   bgmSources:
   - {fileID: 210373968}
   - {fileID: 1244312552}

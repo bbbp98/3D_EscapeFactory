@@ -33,6 +33,9 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int num)
     {
         curScore += num;
+
+        // play sfx
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Score, true);
     }
 
     public void SaveScore()

@@ -47,20 +47,6 @@ public class SoundManager : MonoBehaviour
         LoadVolumes();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            OnOffBgmAudio(BgmSounds.Main, true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            OnOffBgmAudio(BgmSounds.Main, false);
-        }
-    }
-
-
     public void ChangeBgmVolume(float v)
     {
         bgmVolume = v;
