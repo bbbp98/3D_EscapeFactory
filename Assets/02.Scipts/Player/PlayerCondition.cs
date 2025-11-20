@@ -25,11 +25,14 @@ public class PlayerCondition : MonoBehaviour
     [SerializeField] private GameObject shieldEffectPrefab;
     private GameObject currentShield;
 
+    int skillCount = 0;
     private Dictionary<BuffType, Coroutine> coroutineDict = new Dictionary<BuffType, Coroutine>();
 
+    [SerializeField] private Animator[] petAnimators;
     void Start()
     {
         health = 2;
+        skillCount = 1;
         invincible = false;
         monsterForward = false;
         playerController = GetComponent<PlayerController>();
@@ -37,6 +40,8 @@ public class PlayerCondition : MonoBehaviour
         monsterAnimator = monster.GetComponent<Animator>();
 
         originSpeed = playerController.moveSpeed;
+
+        petAnimators = GetComponentsInChildren<Animator>();
     }
 
     public void Slow(float multiplier = 2f, float duration = 3f) //속도 줄이기(배율, 지속시간)
@@ -44,9 +49,20 @@ public class PlayerCondition : MonoBehaviour
         if (invincible) return;
         playerController.ChangeSpeedTemporaily(multiplier, duration);
     }
-
+    private bool PetProtectsPlayer()
+    {
+        if (GameManager.Instance.equippedPet != PetType.None && skillCount > 0)
+        {
+            animationHandler.ShowPetEffect();
+            skillCount--;
+            TriggerPetAnimtion("DoRotate");
+            return true; // 펫이 대신 맞아줌
+        }
+        return false;
+    }
     public void InstantDeath() //즉사
     {
+        if (PetProtectsPlayer()) return;
         if (health <= 0 || invincible) return;
         health = 0;
         Die();
@@ -54,6 +70,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Damaged()
     {
+        if (PetProtectsPlayer()) return;
         if (health <= 0 || invincible) return;
         health -= 1;
         if (health <= 0)
@@ -64,6 +81,8 @@ public class PlayerCondition : MonoBehaviour
         animationHandler.DamagedAnimation();
         monsterForward = true;
         StartCoroutine(MoveMonsterForward(new Vector3(0, 0, -5.5f), 1.5f));//몬스터 서서히 이동
+
+        TriggerPetAnimtion("DoRotate");
     }
 
     private IEnumerator MoveMonsterForward(Vector3 targetLocalPos, float duration)
@@ -81,6 +100,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void Die()
     {
+        TriggerPetAnimtion("Die");
         playerController.moveSpeed = 0f;
         StartCoroutine(DieCoroutine(new Vector3(1.46f, 0, -2.32f), 1.5f));
     }
@@ -177,5 +197,26 @@ public class PlayerCondition : MonoBehaviour
         magnetActive = false;
         ItemBase.ClearMagnetTarget();
     }
-    #endregion
-}
+    private bool HasParameter(Animator animator, string paramName)
+    {
+        foreach (var param in animator.parameters)
+        {
+            if (param.name == paramName) return true;
+        }
+        return false;
+    }
+
+    private void TriggerPetAnimtion(string triggerName)
+    {
+        if (GameManager.Instance.equippedPet == PetType.None) return;
+
+        foreach (var anim in petAnimators)
+        {
+            if (anim != null && HasParameter(anim, triggerName))
+            {
+                anim.SetTrigger(triggerName);
+            }
+        }
+    }
+        #endregion
+ }

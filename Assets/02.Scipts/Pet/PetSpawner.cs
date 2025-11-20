@@ -9,7 +9,6 @@ public class PetSpawner : MonoBehaviour
     public GameObject catPrefab;
     public Transform attachPoint;
     private GameObject petInstance;
-    /*
     void Start()
     {
         if (GameManager.Instance == null) return;
@@ -46,5 +45,4 @@ public class PetSpawner : MonoBehaviour
     {
         
     }
-    */
 }

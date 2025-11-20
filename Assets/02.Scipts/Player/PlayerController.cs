@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     {
         float gravityMultiplier = IsGrounded() ? 1f : 2f;
         bool isGrounded = IsGrounded();
-        //Debug.Log($"{rb.velocity} {isGrounded}");
         rb.AddForce(Vector3.down * customGravity * gravityMultiplier, ForceMode.Acceleration);
         if (isJumping && isGrounded&&rb.velocity.y<-0.01f&&Time.time-jumpStartTime>0.1f)
         {

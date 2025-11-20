@@ -13,6 +13,8 @@ public enum GameState
     GameOver    //게임 끝
 }   
 
+public enum PetType { None, BlueRobot, YellowRobot, Cat }
+
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
@@ -25,6 +27,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameState curState;
     public GameState CurState => curState;
 
+    public Dictionary<PetType, bool> petUnlocks = new Dictionary<PetType, bool>(); // 펫 해금여부
+    public PetType equippedPet = PetType.None; // 펫 장착
+
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -33,6 +38,7 @@ public class GameManager : MonoBehaviour
             if (_instance == null)
             {
                 _instance = new GameObject("GameManager").AddComponent<GameManager>();
+                
             }
             return _instance;
         }
@@ -43,6 +49,11 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            petUnlocks[PetType.BlueRobot] = true;
+            petUnlocks[PetType.YellowRobot] = true;
+            petUnlocks[PetType.Cat] = true;
+            equippedPet = PetType.Cat;
         }
         else
         {
