@@ -29,11 +29,16 @@ public class ItemBase : MonoBehaviour, IPoolObject
         {
             PoolManager.Instance.Release(gameObject);
             OnGetEffect(player);
+
+            if(data.type == ItemType.Buff)
+            {
+                SoundManager.Instance.OnOffClickAudio(ClickSounds.Item, true);
+            }
         }
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» È¹µæÇßÀ» ¶§ÀÇ È¿°ú
+    /// ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
     /// </summary>
     protected virtual void OnGetEffect(PlayerCondition player) { }
 

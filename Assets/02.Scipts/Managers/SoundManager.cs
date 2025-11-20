@@ -47,20 +47,6 @@ public class SoundManager : MonoBehaviour
         LoadVolumes();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            OnOffBgmAudio(BgmSounds.Main, true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            OnOffBgmAudio(BgmSounds.Main, false);
-        }
-    }
-
-
     public void ChangeBgmVolume(float v)
     {
         bgmVolume = v;
@@ -134,12 +120,48 @@ public class SoundManager : MonoBehaviour
 
     public void OnOffUiAudio(UISounds us, bool isOn)
     {
-        
+        if (isOn)
+        {
+            var ui = uiSources[uiIndex];
+            ui.clip = uiSoundDic[us];
+            uiIndex = (uiIndex + 1) % uiSources.Count;
+
+            ui.Play();
+            //StartCoroutine(FadeIn(ui));
+        }
+        else
+        {
+            for(int i = uiSources.Count - 1; i >= 0; i--)
+            {
+                if(uiSources[i].clip == uiSoundDic[us])
+                {
+                    uiSources[i].Stop();
+                }
+            }
+        }
     }
 
     public void OnOffClickAudio(ClickSounds cs, bool isOn)
     {
-        
+        if (isOn)
+        {
+            var click = clickSources[clickIndex];
+            click.clip = clickSoundDic[cs];
+            clickIndex = (clickIndex + 1) % clickSources.Count;
+
+            click.Play();
+            //StartCoroutine(FadeIn(click));
+        }
+        else
+        {
+            for(int i = clickSources.Count - 1; i >= 0; i--)
+            {
+                if(clickSources[i].clip == clickSoundDic[cs])
+                {
+                    clickSources[i].Stop();
+                }
+            }
+        }
     }
 
     IEnumerator FadeIn(AudioSource audioSource)

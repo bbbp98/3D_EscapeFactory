@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,25 +13,13 @@ public enum GameState
     GameOver    //게임 끝
 }   
 
-public enum GameDifficulty
-{
-    Easy,   //0.8배속
-    Normal,     //1배속
-    Hard    //1.2배속
-}
-
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] private GameObject player;
 
-    [Header("Difficulty Info")]     //난이도 현재 단계
-    [SerializeField] private GameDifficulty curDifficulty = GameDifficulty.Normal;
-    public GameDifficulty CurDifficulty => curDifficulty;
-
-    [Header("Difficulty Speed")]    //난이도 별 속도 
-    [SerializeField] private float difficultySpeed = 1f;
-    public float DifficultySpeed => difficultySpeed;
+    private float speedRate = 0.02f;
+    private float runtimeSpeed = 1f;
 
     [Header("State Info")]
     [SerializeField] private GameState curState;
@@ -39,7 +28,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance
     {
-        get // 재시작 시 게임 매니저를 참조한 다른 스크립트에서 찾을려고 할 때 null뜰 수 있음
+        get 
         {
             if (_instance == null)
             {
@@ -68,23 +57,17 @@ public class GameManager : MonoBehaviour
     {
         InitGame();
     }
-   
-    //난이도 설정 메서드
-    public void SetDifficulty(GameDifficulty difficulty)    
+    private void Update()
     {
-        curDifficulty = difficulty;
-        switch (difficulty)
+        if(curState == GameState.Playing)
         {
-            case GameDifficulty.Easy:
-                difficultySpeed = 0.8f;
-                break;
-            case GameDifficulty.Normal:
-                difficultySpeed = 1f;
-                break;
-            case GameDifficulty.Hard:
-                difficultySpeed = 1.2f;
-                break;
+            runtimeSpeed += speedRate * Time.deltaTime;
         }
+    }
+    
+    public float TotalSpeedMultiplier()
+    {
+        return  runtimeSpeed;
     }
 
     //게임 설정 초기화
@@ -93,9 +76,9 @@ public class GameManager : MonoBehaviour
         //초기 상태
         curState = GameState.Pause;
         
-        // 시작 Sound 넣기
+        // 누적속도 초기화
+        runtimeSpeed = 1f;
 
-        //UIManager.Instance.CallUIOnOff(PanelType.InGame, false);
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.CallUIOnOff(PanelType.Settings, false);
     }
@@ -108,8 +91,6 @@ public class GameManager : MonoBehaviour
 
         //게임 시작 상태로 바꾸기
         curState = GameState.Playing;
-       
-        //난이도에 따른 속도 적용
 
         Resume();
 
@@ -123,10 +104,8 @@ public class GameManager : MonoBehaviour
 
         curState = GameState.GameOver;
 
-        //Sound 넣기
-
         Debug.Log("게임 끝");
-        //endPanel 띄우기
+ 
         UIManager.Instance.CallUIOnOff(PanelType.GameOver, true);
 
     }
@@ -135,7 +114,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작
         InitGame();
-        StartCoroutine(CountDown());
+        UseCountdown();
     }
 
     //게임 멈추기
@@ -160,20 +139,12 @@ public class GameManager : MonoBehaviour
     }
 
     //카운트 다운 메서드
-    public IEnumerator CountDown()
+    public void UseCountdown()
     {
         curState = GameState.CountDown;
         Pause();
-        int count = 3;
-
-        while (count > 0)
-        {
-            Debug.Log(count);   //여기에 UI, SOUND 
-            yield return new WaitForSecondsRealtime(1f);
-            count--;
-        }
-        Debug.Log("시작");
-        yield return new WaitForSecondsRealtime(0.5f);
-        StartGame();
+        UIManager.Instance.CallUIOnOff(PanelType.Countdown, true);
     }
+    
+
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AchievementUIManager : MonoBehaviour
@@ -37,6 +38,12 @@ public class AchievementUIManager : MonoBehaviour
     public void RefreshUI()
     {
         var achievements = AchievementManager.Instance.achievements;
+
+        if (!targetPanel.activeInHierarchy)
+        {
+            return;    
+        }
+
         for (int i = 0; i < achievements.Count; i++)
         {
             spawnedItems[i].SetData(achievements[i]);
@@ -47,10 +54,15 @@ public class AchievementUIManager : MonoBehaviour
     {
         targetPanel.SetActive(true);
         PopulateUI();
+
+        //Play Click Sound
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 
     public void ClosePanel()
     {
         targetPanel.SetActive(false);
+        //Play Click Sound
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Click, true);
     }
 }

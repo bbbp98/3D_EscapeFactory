@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SearchService;
@@ -30,7 +30,7 @@ public class _SceneManager : MonoBehaviour
         OpenScene(SceneType.Title);
         UIManager.Instance.QuickUIOnOff(PanelType.InGame, false);
         //StartCoroutine(GameManager.Instance.CountDown());
-        
+             
     }
 
     public void LoadGame()
@@ -39,13 +39,13 @@ public class _SceneManager : MonoBehaviour
         UIManager.Instance.QuickUIOnOff(PanelType.GameOver, false);
         UIManager.Instance.QuickUIOnOff(PanelType.Settings, false);
         SceneManager.LoadScene(sceneDic[SceneType.Game].name);
-        StartCoroutine(GameManager.Instance.CountDown());
+        GameManager.Instance.UseCountdown();     
     }
 
 
     public void OpenScene(SceneType st)
     {
-        SceneManager.LoadScene(sceneDic[st].name);
+        SceneManager.LoadScene(sceneDic[st].name);;
     }
 
     public void LoadTitle()

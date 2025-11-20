@@ -26,6 +26,9 @@ public class AnimationHandler : MonoBehaviour
         Debug.Log("Jump");
         anim.Play("Jump_Full_Long", 0, 0f);
         anim.SetBool("Landed", false);
+
+        // play sfx
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.Jump, true);
     }
     public void SlidingAnimation(bool state)
     {
@@ -34,6 +37,8 @@ public class AnimationHandler : MonoBehaviour
         {
             col.height = 1.1f;
             col.center = new Vector3(0f, 0.5f, 0f);
+            // play sfx
+            SoundManager.Instance.OnOffClickAudio(ClickSounds.Slide, true);
         }
         else
         {
@@ -46,6 +51,9 @@ public class AnimationHandler : MonoBehaviour
         _gameObject.SetActive(false);
         ShowEffect();
         anim.SetTrigger("IsDie");
+
+        // play sfx
+        SoundManager.Instance.OnOffClickAudio(ClickSounds.GameOver, true);
     }
     public void DamagedAnimation()
     {
