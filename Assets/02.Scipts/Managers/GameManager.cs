@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작
         InitGame();
-        StartCoroutine(CountDown());
+        UseCountdown();
     }
 
     //게임 멈추기
@@ -160,20 +160,12 @@ public class GameManager : MonoBehaviour
     }
 
     //카운트 다운 메서드
-    public IEnumerator CountDown()
+    public void UseCountdown()
     {
         curState = GameState.CountDown;
         Pause();
-        int count = 3;
-
-        while (count > 0)
-        {
-            Debug.Log(count);   //여기에 UI, SOUND 
-            yield return new WaitForSecondsRealtime(1f);
-            count--;
-        }
-        Debug.Log("시작");
-        yield return new WaitForSecondsRealtime(0.5f);
-        StartGame();
+        //UIManager.Instance.CallUIOnOff(PanelType.Countdown, true);
     }
+    
+
 }
