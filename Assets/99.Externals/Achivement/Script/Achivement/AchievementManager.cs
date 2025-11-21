@@ -98,7 +98,7 @@ public class AchievementManager : MonoBehaviour
 
         SaveAchievements();
 
-        if (!alreadyUnlock)
+        if (!alreadyUnlock && unlocked)
         {
             if(achieveUiImage == null)
             {
@@ -239,5 +239,21 @@ public class AchievementManager : MonoBehaviour
             }            
             yield return null;
         }
+    }
+
+    public void ResetAllAchieve()
+    {
+        LoadAchievements();
+
+        Debug.Log("Reset achievements");
+        foreach(Achievement achievement in achievements)
+        {
+            achievement.progress = 0;
+            achievement.isUnlocked = false;
+        }
+
+        AchievementList wrapper = new AchievementList { list = achievements };
+        string json = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(savePath, json);
     }
 }

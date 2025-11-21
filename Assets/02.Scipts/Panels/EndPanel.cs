@@ -31,13 +31,15 @@ public class EndPanel : MonoBehaviour
         // 최고 점수 적용
         StartCoroutine(ElevateNum(bestScoreNum, bestScore));
 
-
-        bestScoreText.gameObject.SetActive(false);
         if(curScoreNum == bestScoreNum)
         {
             // 최고 점수 갱신 연출 적용
             bestScoreText.gameObject.SetActive(true);
             StartCoroutine(ElevateText(bestScoreText));
+        }
+        else
+        {
+            bestScoreText.gameObject.SetActive(false);
         }
         
     }
@@ -47,20 +49,20 @@ public class EndPanel : MonoBehaviour
     IEnumerator ElevateNum(int num, TextMeshProUGUI targetText)
     {
         int n = 0;
-        float gapTime = 3f / (num > 0 ? num : 1);
+        float gapTime = 3f / (num > 0 ? num : 3);
 
         Debug.Log(gapTime);
 
         if(gapTime > 1f)
         {
-            gapTime = 0.25f;
+            gapTime = 0.1f;
         }
 
         if(num > 0)
         {
             while(n < num)
             {
-                n += 10;
+                n += 100;
                 if(n > num) n = num;
                 targetText.text = n.ToString();
 

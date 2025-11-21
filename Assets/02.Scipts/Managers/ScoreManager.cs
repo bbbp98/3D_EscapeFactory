@@ -62,7 +62,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "0";
     }
 
-    private void ResetBestScore()
+    public void ResetBestScore()
     {
        PlayerPrefs.SetInt("BestScore", 0);
     }

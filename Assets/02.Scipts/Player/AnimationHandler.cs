@@ -6,8 +6,8 @@ public class AnimationHandler : MonoBehaviour
 {
     public Animator anim;
     private CapsuleCollider col;
-    public GameObject _gameObject;//ÇÃ·¹ÀÌ¾î Å¸°Ý ÀÌÆåÆ®
-    public GameObject _gameObject2;//Æê Å¸°Ý ÀÌÆåÆ®
+    public GameObject _gameObject;//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    public GameObject _gameObject2;//ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -30,6 +30,7 @@ public class AnimationHandler : MonoBehaviour
 
         // play sfx
         SoundManager.Instance.OnOffClickAudio(ClickSounds.Jump, true);
+        AchievementManager.Instance.AddProgress("jump", 1);
     }
     public void SlidingAnimation(bool state)
     {
@@ -40,6 +41,7 @@ public class AnimationHandler : MonoBehaviour
             col.center = new Vector3(0f, 0.5f, 0f);
             // play sfx
             SoundManager.Instance.OnOffClickAudio(ClickSounds.Slide, true);
+            AchievementManager.Instance.AddProgress("slide", 1);
         }
         else
         {
