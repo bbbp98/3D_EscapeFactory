@@ -10,8 +10,7 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
-        SoundManager.Instance.OnOffBgmAudio(BgmSounds.Main, false);
-        SoundManager.Instance.OnOffBgmAudio(BgmSounds.Main, true);
+        SoundManager.Instance.RestartBgmAudio(BgmSounds.Main);
     }
 
     public void StartGameFlow()

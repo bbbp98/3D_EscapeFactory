@@ -118,6 +118,20 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void RestartBgmAudio(BgmSounds bs)
+    {
+        foreach(var audioSource in bgmSources)
+        {
+            if(audioSource.clip == bgmSoundDic[bs])
+            {
+                audioSource.Play();
+                return;
+            }
+        }
+
+        OnOffBgmAudio(bs, true);
+    }
+
     public void OnOffUiAudio(UISounds us, bool isOn)
     {
         if (isOn)

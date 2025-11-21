@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
+
+    [SerializeField] TextMeshProUGUI scoreText;
 
     [Header("Scores")]
 
@@ -20,14 +23,6 @@ public class ScoreManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         bestScore = PlayerPrefs.GetInt("BestScore", 0);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ResetBestScore();
-        }
     }
 
     public void AddScore(int num)
@@ -64,11 +59,12 @@ public class ScoreManager : MonoBehaviour
     public void ResetCurScore()
     {
         curScore = 0;
+        scoreText.text = "0";
     }
 
     private void ResetBestScore()
     {
-       PlayerPrefs.SetInt("BestScore", 0); 
+       PlayerPrefs.SetInt("BestScore", 0);
     }
 
 }
