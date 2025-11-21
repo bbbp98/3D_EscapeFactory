@@ -18,8 +18,6 @@ public enum PetType { None, BlueRobot, YellowRobot, Cat }
 public class GameManager : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private GameObject player;
-
     private float speedRate = 0.02f;
     private float runtimeSpeed = 1f;
 
