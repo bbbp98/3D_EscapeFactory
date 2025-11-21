@@ -122,8 +122,7 @@ public class GameManager : MonoBehaviour
     public void ReStartRoutine()    //restart 버튼 누르면 실행
     {
         ScoreManager.Instance.ResetCurScore();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작  
-        InitGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //씬 재시작         
         UseCountdown();
     }
 
@@ -151,6 +150,7 @@ public class GameManager : MonoBehaviour
     //카운트 다운 메서드
     public void UseCountdown()
     {
+        InitGame();
         curState = GameState.CountDown;
         Pause();
         UIManager.Instance.CallUIOnOff(PanelType.Countdown, true);
