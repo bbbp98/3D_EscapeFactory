@@ -8,39 +8,25 @@ public class BackCamera : MonoBehaviour
     public float height = 1.5f;                       //카메라 위치
     public float followSpeed = 8f;                  //카메라 속도
 
-    public float speedThreshold = 8f;               //이 속도 이하라면 카메라 켜짐
-    public float playerSpeed;                //플레이어 속도
-
+    private int lastHealth = -1;
+    private float mirrorTimer = 0f;
 
     public GameObject mirrorUI;
 
-    private Vector3 lastPos;
 
     public PlayerCondition playerCondition;
 
-    private void Start()
-    {
-        lastPos = target.position;
-    }
 
     private void LateUpdate()
     {
         if (target == null) return;
 
 
-        UpdatePlayerSpeed();
         FollowTarget();
         UpdateCameraRotation();
         UpdateMirrorUI();
     }
 
-    private void UpdatePlayerSpeed()
-    {
-        Vector3 move = target.position - lastPos;
-        playerSpeed = Vector3.Dot(move / Time.deltaTime, target.forward); 
-
-        lastPos = target.position;
-    }
 
     private void FollowTarget()
     {
@@ -63,13 +49,46 @@ public class BackCamera : MonoBehaviour
 
     private void UpdateMirrorUI()
     {
-        // 속도가 느리면 UI 보이기
-        mirrorUI.SetActive(playerSpeed < speedThreshold);
+        if (playerCondition == null) return;
 
-        if (playerCondition != null && (playerCondition.health <= 0))
+        if (lastHealth == -1)
+            lastHealth = playerCondition.health;
+
+        // 체력이 줄었을 때만 체크
+        if (playerCondition.health < lastHealth)
+        {
+            // 오직 "1일 때"만 켜짐
+            if (playerCondition.health == 1)
+            {
+                mirrorUI.SetActive(true);
+                mirrorTimer = 3f;
+            }
+        }
+
+        // 0이면 항상 꺼짐
+        if (playerCondition.health == 0)
         {
             mirrorUI.SetActive(false);
-            return;
+            mirrorTimer = 0;
         }
+
+        // 2 이상이면 절대 켜지지 않게 확실히 막기
+        if (playerCondition.health >= 2)
+        {
+            mirrorUI.SetActive(false);
+        }
+
+        // 타이머 작동
+        if (mirrorTimer > 0)
+        {
+            mirrorTimer -= Time.deltaTime;
+            if (mirrorTimer <= 0)
+            {
+                mirrorUI.SetActive(false);
+            }
+        }
+
+        lastHealth = playerCondition.health;
     }
 }
+
