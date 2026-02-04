@@ -31,9 +31,7 @@ public class ObstacleSpawner : MonoBehaviour
                 float newSpawnRate = baseSpawnRate * GameManager.Instance.TotalSpeedMultiplier();
                 newSpawnRate = Mathf.Min(newSpawnRate, 0.9f);
 
-                Debug.Log(newSpawnRate);
-
-                if (Random.value < baseSpawnRate)
+                if (Random.value < newSpawnRate)
                 {
                     GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
                     GameObject go = PoolManager.Instance.Get(prefab.name);
